@@ -126,7 +126,11 @@ def page(t):
           '"alternateName":"مورجروث للحلول الرقمية","url":"' + SITE + '/","email":"' + EMAIL + '",'
           '"logo":"' + SITE + '/assets/favicon.png","areaServed":"Middle East and North Africa",'
           '"sameAs":[' + ",".join(f'"{u}"' for _, _, u in SOC) + f',"{PARTNER}"]' + '}')
-    langs = "".join(f'<a href="{p}" hreflang="{c}" lang="{c}" title="{full}"' + (' aria-current="page"' if c == t["lang"] else "") + f'>{short}</a>' for c, p, short, full in LANGS)
+    GLOBE = '<svg class="i-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>'
+    CHEV = '<svg class="i-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'
+    cur = next(x for x in LANGS if x[0] == t["lang"])
+    items = "".join(f'<li><a href="{p}" hreflang="{c}" lang="{c}"' + (' aria-current="page"' if c == t["lang"] else "") + f'><span>{full}</span><b>{short}</b></a></li>' for c, p, short, full in LANGS)
+    langs = f'<details class="lang-dd"><summary aria-label="{t["lang_label"]}: {cur[3]}">{GLOBE}<span>{cur[2]}</span>{CHEV}</summary><ul>{items}</ul></details>'
     return f"""<!doctype html>
 <html lang="{t['lang']}" dir="{t['dir']}">
 <head>
@@ -178,9 +182,9 @@ def page(t):
       <button class="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="{t['menu']}"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="nav-links">
         {nav}
-        <li class="langs" role="group" aria-label="{t['lang_label']}">{langs}</li>
+        <li class="langs-li">{langs}</li>
         <li><button class="theme-btn" type="button" aria-label="{t['theme_label']}" title="{t['theme_label']}">{SUN}{MOON}</button></li>
-        <li><a class="nav-cta" href="{mailto}">{t['nav_cta']}</a></li>
+        <li><a class="nav-cta" href="{mailto}" data-consult>{t['nav_cta']}</a></li>
       </ul>
     </nav>
   </div>
@@ -195,12 +199,11 @@ def page(t):
       <h1 data-reveal style="--d:.08s">{t['h1_a']} <span class="rotator grad" aria-live="polite">{rot}</span><br>{t['h1_b']} <span class="grad">{t['h1_grad']}</span></h1>
       <p class="lead" data-reveal style="--d:.16s">{t['lead']}</p>
       <div class="btns" data-reveal style="--d:.24s">
-        <a class="btn btn-primary" href="{mailto}">{t['btn1']} {ARROW}</a>
+        <a class="btn btn-primary" href="{mailto}" data-consult="ai">{t['btn1']} {ARROW}</a>
         <a class="btn btn-ghost" href="#services">{t['btn2']}</a>
       </div>
       <div class="trust" data-reveal style="--d:.32s">
         <a href="{PARTNER}" target="_blank" rel="noopener">{I['g']}<span>{t['badge_partner']}</span></a>
-        <span>{t['badge_bi']}</span>
       </div>
     </div>
     <div class="console" data-reveal="zoom" style="--d:.2s" aria-hidden="true">
@@ -235,7 +238,7 @@ def page(t):
         <h3>{t['ai_h']}</h3>
         <p class="t-lead">{t['ai_p']}</p>
         <ul class="t-list">{ai_items}</ul>
-        <a class="t-cta" href="#contact">{t['t_ai_cta']}{ARROW}</a>
+        <a class="t-cta" href="{mailto}" data-consult="ai">{t['t_ai_cta']}{ARROW}</a>
       </article>
       <article class="svc-track t-mk" data-reveal style="--d:.1s">
         <div class="t-head"><span class="t-num">02</span><span class="t-label">{t['t2']}</span></div>
@@ -243,7 +246,7 @@ def page(t):
         <h3>{t['mk_h']}</h3>
         <p class="t-lead">{t['mk_p']}</p>
         <ul class="t-list">{mk_items}</ul>
-        <a class="t-cta" href="#contact">{t['t_mk_cta']}{ARROW}</a>
+        <a class="t-cta" href="{mailto}" data-consult="mk">{t['t_mk_cta']}{ARROW}</a>
       </article>
     </div>
     <p class="t-note" data-reveal><span aria-hidden="true">+</span>{t['t_note']}</p>
@@ -291,7 +294,7 @@ def page(t):
         <div>
           <h2 class="split">{t['ct_h']}</h2>
           <p>{t['ct_p']}</p>
-          <a class="btn btn-primary" href="{mailto}">{t['nav_cta']} {ARROW}</a>
+          <a class="btn btn-primary" href="{mailto}" data-consult>{t['nav_cta']} {ARROW}</a>
         </div>
         <ul class="contact-list">
           <li><a href="{mailto}">{I['mail']}<span class="ltr">{EMAIL}</span></a></li>
