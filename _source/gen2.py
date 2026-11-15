@@ -1,0 +1,292 @@
+"""MoreGrowth site v2: modern AI-era design with motion. Arabic at /, English at /en/."""
+import os, sys
+from urllib.parse import quote
+sys.path.insert(0, os.path.dirname(__file__))
+from icons import ICONS as I
+from gen import AR, EN, SITE, PARTNER, EMAIL, SOC
+from nl import NL
+
+OUT = sys.argv[1]
+
+LINE = {
+ "roadmap": '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/>',
+ "flow": '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/>',
+ "chat": '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/>',
+ "spark": '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="M19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/>',
+ "learn": '<path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/>',
+ "shield": '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/>',
+}
+AI_ICONS = ["roadmap", "flow", "chat", "spark", "learn", "shield"]
+ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+CLIENTS = [("jawwal", "Jawwal"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
+           ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("famkeez", "Famkeez"), ("one-studio", "One Studio")]
+
+AR.update(
+    pill_new="جديد", pill="خدمات التحول للذكاء الاصطناعي للمؤسسات",
+    h1_a="نُعيد تشكيل", h1_b="بقوة", h1_grad="الذكاء الاصطناعي",
+    rot=["التسويق", "المبيعات", "العمليات", "خدمة العملاء"],
+    con_title="مساعد مورجروث الذكي", con_live="متصل",
+    con=[("user", "ما الحملات التي تستنزف ميزانيتنا هذا الشهر؟"),
+         ("ai", "حللت 4 حملات نشطة. حملة البحث العامة تستهلك 38% من الميزانية بعائد منخفض. أقترح إعادة التوزيع:"),
+         ("user", "ممتاز، جهّز 3 إعلانات جديدة بالعربية"),
+         ("ai", "تم ✓ كتبت 3 نسخ إعلانية وأرسلت مسودة التقرير للفريق للمراجعة.")],
+    con_bars=[("البحث: العلامة", 82), ("إعادة الاستهداف", 64), ("التسوق", 47)],
+    con_note="مثال توضيحي لمساعد ذكي يمكن بناؤه لمؤسستك",
+    clients_p="شركات ومؤسسات عملنا معها",
+    ai_flow_h="من البيانات إلى القرار، تلقائياً",
+    flow=[("بيانات من أنظمتك وحملاتك", "متصل"), ("وكيل ذكي يحلل ويقترح", "ذكاء اصطناعي"), ("تقرير وإجراء بموافقة فريقك", "مؤتمت")],
+    mk_more="جميع الحملات تُدار بمعايير شريك جوجل المعتمد",
+    why_big=["G", "↗", "ع"],
+    badge_bi="فريق يعمل بالعربية والإنجليزية والهولندية",
+    theme_label="تبديل الوضع الفاتح والداكن", lang_label="اللغة",
+)
+EN.update(
+    pill_new="New", pill="Enterprise AI transformation services",
+    h1_a="We reshape your", h1_b="with", h1_grad="AI",
+    rot=["marketing", "sales", "operations", "customer service"],
+    con_title="MoreGrowth AI Assistant", con_live="Online",
+    con=[("user", "Which campaigns are draining our budget this month?"),
+         ("ai", "I analyzed 4 active campaigns. Generic Search uses 38% of spend at a low return. Suggested reallocation:"),
+         ("user", "Great, draft 3 new Arabic ads"),
+         ("ai", "Done ✓ 3 ad variants written and a draft report sent to your team for review.")],
+    con_bars=[("Brand search", 82), ("Remarketing", 64), ("Shopping", 47)],
+    con_note="Illustrative example of an assistant we can build for you",
+    clients_p="Companies and organizations we have worked with",
+    ai_flow_h="From data to decision, automatically",
+    flow=[("Data from your systems & campaigns", "Connected"), ("AI agent analyzes and recommends", "AI"), ("Report & action, approved by your team", "Automated")],
+    mk_more="All campaigns run to certified Google Partner standards",
+    why_big=["G", "↗", "Aa"],
+    badge_bi="Multilingual team: Arabic, English & Dutch",
+    theme_label="Toggle light and dark mode", lang_label="Language",
+)
+NL.update(theme_label="Schakel tussen licht en donker", lang_label="Taal")
+LANGS = [("ar", "/", "عربي", "العربية"), ("en", "/en/", "EN", "English"), ("nl", "/nl/", "NL", "Nederlands")]
+SUN = '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+MOON = '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'
+
+
+def svg_line(k):
+    return f'<svg viewBox="0 0 24 24" aria-hidden="true">{LINE[k]}</svg>'
+
+
+def page(t):
+    r = t["root"]
+    mailto = f"mailto:{EMAIL}?subject={quote(t['mail_subject'])}"
+    nav = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in t["nav"])
+    rot = "".join(f'<span class="{"on" if i == 0 else ""}">{w}</span>' for i, w in enumerate(t["rot"]))
+    # console
+    con = []
+    for kind, txt in t["con"]:
+        if kind == "user":
+            con.append(f'<div class="msg user">{txt}</div>')
+        else:
+            extra = ""
+            if "bars" not in "".join(con) and t["con_bars"]:
+                extra = '<div class="bars">' + "".join(
+                    f'<div class="bar"><span>{n}</span><div><i style="--w:{v}%"></i></div><span>{v}%</span></div>' for n, v in t["con_bars"]) + "</div>"
+            con.append(f'<div class="msg ai"><small>{t["con_title"]}</small>{txt}{extra}</div>')
+    con.insert(0, "")
+    con_html = "".join(con) + '<div class="msg ai typing-row" style="display:none;opacity:1;transform:none;width:max-content"><span class="typing"><i></i><i></i><i></i></span></div>'
+    # clients marquee (duplicated for seamless loop)
+    tiles = "".join(f'<div class="logo-tile"><img src="{r}assets/clients/{f}.png" alt="{n}" loading="lazy" height="56"></div>' for f, n in CLIENTS)
+    # ai cards
+    ai_cards = "".join(
+        f'<article class="card" data-reveal style="--d:{(i % 3) * 0.08:.2f}s"><div class="ic">{svg_line(AI_ICONS[i])}</div><h3>{a}</h3><p>{b}</p></article>'
+        for i, (a, b) in enumerate(t["ai"]))
+    flow = "".join(f'<div><b>{i + 1}</b>{a}<span>{s}</span></div>' for i, (a, s) in enumerate(t["flow"]))
+    chips = "".join(
+        f'<div class="chip" data-reveal style="--d:{(i % 3) * 0.08:.2f}s"><span class="n">{i + 1:02d}</span><div><strong>{a}</strong><span>{b}</span></div></div>'
+        for i, (a, b) in enumerate(t["mk"]))
+    steps = "".join(f'<div class="tstep" data-reveal style="--d:{i * 0.1:.1f}s"><div class="dot">{i + 1:02d}</div><div><h3>{a}</h3><p>{b}</p></div></div>' for i, (a, b) in enumerate(t["steps"]))
+    sectors = "".join(f"<span>{s}</span>" for s in t["sectors"])
+    why = "".join(f'<article class="card" data-reveal style="--d:{i * 0.1:.1f}s"><div class="big grad">{t["why_big"][i]}</div><h3>{a}</h3><p>{b}</p></article>' for i, (a, b) in enumerate(t["why"]))
+    values = "".join(f'<div data-reveal style="--d:{i * 0.07:.2f}s"><strong>{a}</strong><span>{b}</span></div>' for i, (a, b) in enumerate(t["values"]))
+    soc_footer = "".join(f'<a href="{u}" target="_blank" rel="noopener" aria-label="{n}">{I[k]}</a>' for k, n, u in SOC)
+    soc_contact = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{I[k]}<span>{n}</span></a></li>' for k, n, u in SOC[:2])
+    url = SITE + t["path"]
+    ld = ('{"@context":"https://schema.org","@type":"ProfessionalService","name":"MoreGrowth Digital Solutions",'
+          '"alternateName":"مورجروث للحلول الرقمية","url":"' + SITE + '/","email":"' + EMAIL + '",'
+          '"logo":"' + SITE + '/assets/favicon.png","areaServed":"Middle East and North Africa",'
+          '"sameAs":[' + ",".join(f'"{u}"' for _, _, u in SOC) + f',"{PARTNER}"]' + '}')
+    langs = "".join(f'<a href="{p}" hreflang="{c}" lang="{c}" title="{full}"' + (' aria-current="page"' if c == t["lang"] else "") + f'>{short}</a>' for c, p, short, full in LANGS)
+    return f"""<!doctype html>
+<html lang="{t['lang']}" dir="{t['dir']}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{t['title']}</title>
+<meta name="description" content="{t['desc']}">
+<link rel="canonical" href="{url}">
+<link rel="alternate" hreflang="ar" href="{SITE}/">
+<link rel="alternate" hreflang="en" href="{SITE}/en/">
+<link rel="alternate" hreflang="nl" href="{SITE}/nl/">
+<link rel="alternate" hreflang="x-default" href="{SITE}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{t['title']}">
+<meta property="og:description" content="{t['desc']}">
+<meta property="og:url" content="{url}">
+<meta property="og:locale" content="{t['og_locale']}">
+<meta property="og:image" content="{SITE}/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@moregrowthco">
+<meta name="theme-color" content="#050b1a">
+<meta name="color-scheme" content="dark light">
+<script>(function(){{try{{var t=localStorage.getItem("mg-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}}})()</script>
+<link rel="icon" type="image/png" href="{r}assets/favicon.png">
+<link rel="apple-touch-icon" href="{r}assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{r}assets/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">{ld}</script>
+</head>
+<body>
+<a class="skip" href="#main">{t['skip']}</a>
+<div class="progress" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid"></div></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="main">
+      <a class="brand" href="{t['path']}"><img class="logo-d" src="{r}assets/logo-white.png" alt="MoreGrowth" width="640" height="162"><img class="logo-l" src="{r}assets/logo-navy.png" alt="MoreGrowth" width="640" height="162"></a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="{t['menu']}"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="nav-links">
+        {nav}
+        <li class="langs" role="group" aria-label="{t['lang_label']}">{langs}</li>
+        <li><button class="theme-btn" type="button" aria-label="{t['theme_label']}" title="{t['theme_label']}">{SUN}{MOON}</button></li>
+        <li><a class="nav-cta" href="{mailto}">{t['nav_cta']}</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <canvas id="neural" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div>
+      <a class="pill" href="#services" data-reveal><b>{t['pill_new']}</b>{t['pill']}</a>
+      <h1 data-reveal style="--d:.08s">{t['h1_a']} <span class="rotator grad" aria-live="polite">{rot}</span><br>{t['h1_b']} <span class="grad">{t['h1_grad']}</span></h1>
+      <p class="lead" data-reveal style="--d:.16s">{t['lead']}</p>
+      <div class="btns" data-reveal style="--d:.24s">
+        <a class="btn btn-primary" href="{mailto}">{t['btn1']} {ARROW}</a>
+        <a class="btn btn-ghost" href="#services">{t['btn2']}</a>
+      </div>
+      <div class="trust" data-reveal style="--d:.32s">
+        <a href="{PARTNER}" target="_blank" rel="noopener">{I['g']}<span>{t['badge_partner']}</span></a>
+        <span>{t['badge_bi']}</span>
+      </div>
+    </div>
+    <div class="console" data-reveal="zoom" style="--d:.2s" aria-hidden="true">
+      <div class="console-in">
+        <div class="console-bar"><i></i><i></i><i></i>&nbsp; {t['con_title']}<span><b class="live"></b>{t['con_live']}</span></div>
+        <div class="console-body">{con_html}</div>
+        <div class="console-note">{t['con_note']}</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</section>
+
+<div class="clients">
+  <p data-reveal>{t['clients_p']}</p>
+  <div class="marquee" data-reveal style="--d:.1s">
+    <div class="track">{tiles}<span aria-hidden="true" style="display:contents">{tiles.replace('alt="', 'alt="" data-alt="')}</span></div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{t['svc_k']}</p>
+      <h2 class="split">{t['svc_h']}</h2>
+      <p data-reveal>{t['svc_p']}</p>
+    </div>
+    <div class="bento">
+      <article class="card hero-card" data-reveal>
+        <div><span class="tag">{t['ai_tag']}</span><h3>{t['ai_h']}</h3><p>{t['ai_p']}</p></div>
+        <div class="flow" aria-label="{t['ai_flow_h']}">{flow}</div>
+      </article>
+      {ai_cards}
+    </div>
+    <div class="sub-head">
+      <div><span class="tag">{t['mk_tag']}</span><h3 class="split">{t['mk_h']}</h3></div>
+      <p style="color:var(--muted);margin:0;max-width:44ch" data-reveal>{t['mk_p']}</p>
+    </div>
+    <div class="chips">{chips}</div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="kicker">{t['ap_k']}</p>
+      <h2 class="split">{t['ap_h']}</h2>
+    </div>
+    <div class="timeline"><i class="fill" aria-hidden="true"></i>{steps}</div>
+    <div class="sectors" data-reveal aria-label="{t['sectors_h']}">{sectors}</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">{t['why_k']}</p>
+      <h2 class="split">{t['why_h']}</h2>
+    </div>
+    <div class="why">{why}</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap story">
+    <div>
+      <p class="kicker">{t['ab_k']}</p>
+      <h2 class="split">{t['ab_h']}</h2>
+      <p data-reveal>{t['ab_p1']}</p>
+      <p data-reveal>{t['ab_p2']}</p>
+      <div class="values">{values}</div>
+    </div>
+    <blockquote class="quote" data-reveal="zoom">{t['quote']}</blockquote>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta" data-reveal="zoom">
+      <div class="cta-in">
+        <div>
+          <h2 class="split">{t['ct_h']}</h2>
+          <p>{t['ct_p']}</p>
+          <a class="btn btn-primary" href="{mailto}">{t['nav_cta']} {ARROW}</a>
+        </div>
+        <ul class="contact-list">
+          <li><a href="{mailto}">{I['mail']}<span class="ltr">{EMAIL}</span></a></li>
+          {soc_contact}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img class="logo-d" src="{r}assets/logo-white.png" alt="MoreGrowth" width="640" height="162" loading="lazy"><img class="logo-l" src="{r}assets/logo-navy.png" alt="MoreGrowth" width="640" height="162" loading="lazy">
+    <div class="socials">{soc_footer}</div>
+    <div>© <span id="y">2026</span> {t['company']}. {t['rights']}.</div>
+  </div>
+</footer>
+<script src="{r}assets/main.js" defer></script>
+</body>
+</html>
+"""
+
+
+os.makedirs(os.path.join(OUT, "en"), exist_ok=True)
+open(os.path.join(OUT, "index.html"), "w").write(page(AR))
+open(os.path.join(OUT, "en", "index.html"), "w").write(page(EN))
+os.makedirs(os.path.join(OUT, "nl"), exist_ok=True)
+open(os.path.join(OUT, "nl", "index.html"), "w").write(page(NL))
+print("written v2")
