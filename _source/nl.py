@@ -41,7 +41,7 @@ NL = dict(
         ("Opschalen", "Uitrollen wat werkt, je team trainen en blijven verbeteren."),
     ],
     sectors_h="Voor wie we werken",
-    sectors=["MKB", "E-commerce", "Ngo's & ontwikkelingsprogramma's", "Onderwijs & training", "Zakelijke dienstverlening", "Startups"],
+    sectors=["MKB", "E-commerce", "Overheidsinstanties", "Onderwijs & training", "Mobiele apps", "Startups"],
     why_k="Waarom MoreGrowth", why_h="Een partner die de markt kent en resultaten meet",
     why=[
         ("Gecertificeerde Google Partner", "Officieel erkend voor het beheren van Google Ads volgens de prestatienormen van Google."),

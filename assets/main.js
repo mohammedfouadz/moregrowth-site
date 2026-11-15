@@ -159,6 +159,92 @@
     try { localStorage.setItem('mg-theme', next); } catch (e) {}
   });
 
+  /* language dropdown: close on outside click / Escape */
+  var dd = document.querySelector('.lang-dd');
+  if (dd) {
+    document.addEventListener('click', function (e) { if (dd.open && !dd.contains(e.target)) dd.open = false; });
+    dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { dd.open = false; dd.querySelector('summary').focus(); } });
+  }
+
+  /* consultation request dialog */
+  (function () {
+    // Web3Forms access key (free, sends submissions to info@moregrowth.co). Empty = fall back to a pre-filled email.
+    var FORM_KEY = '00d75d06-4b46-4b0f-b273-9262a13f2475';
+    var links = document.querySelectorAll('[data-consult]');
+    if (!links.length || typeof HTMLDialogElement !== 'function') return;
+    var L = {
+      ar: { title: 'احجز استشارة مجانية', sub: 'جلسة 30 دقيقة مع فريقنا. نرد خلال يوم عمل واحد.', name: 'الاسم الكامل', email: 'البريد الإلكتروني', company: 'اسم الشركة أو المؤسسة', phone: 'رقم الهاتف أو واتساب', ph: '+968 …', opt: '(اختياري)', interest: 'بماذا نساعدك؟', ai: 'الذكاء الاصطناعي', mk: 'التسويق الرقمي', both: 'الاثنان', msg: 'أخبرنا باختصار عن هدفك', send: 'أرسل الطلب', sending: 'جارٍ الإرسال…', okT: 'تم استلام طلبك ✓', okP: 'شكرًا لك! سنتواصل معك على بريدك خلال يوم عمل واحد لتحديد موعد الجلسة.', close: 'إغلاق', err: 'تعذر الإرسال. حاول مرة أخرى أو راسلنا على info@moregrowth.co', req: 'يرجى تعبئة الحقول المطلوبة', subject: 'طلب استشارة من الموقع', privacy: 'نستخدم بياناتك فقط للتواصل معك بخصوص طلبك.' },
+      en: { title: 'Book a free consultation', sub: 'A 30-minute session with our team. We reply within one business day.', name: 'Full name', email: 'Work email', company: 'Company or organization', phone: 'Phone or WhatsApp', ph: '+968 …', opt: '(optional)', interest: 'What can we help with?', ai: 'AI transformation', mk: 'Digital marketing', both: 'Both', msg: 'Tell us briefly about your goal', send: 'Send request', sending: 'Sending…', okT: 'Request received ✓', okP: 'Thank you! We will email you within one business day to schedule your session.', close: 'Close', err: 'Could not send. Please try again or email info@moregrowth.co', req: 'Please fill in the required fields', subject: 'Consultation request from the website', privacy: 'We only use your details to reply to your request.' },
+      nl: { title: 'Plan een gratis adviesgesprek', sub: 'Een sessie van 30 minuten met ons team. We reageren binnen één werkdag.', name: 'Volledige naam', email: 'Zakelijk e-mailadres', company: 'Bedrijf of organisatie', phone: 'Telefoon of WhatsApp', ph: '+31 …', opt: '(optioneel)', interest: 'Waarmee kunnen we helpen?', ai: 'AI-transformatie', mk: 'Digitale marketing', both: 'Beide', msg: 'Vertel kort over je doel', send: 'Verstuur aanvraag', sending: 'Versturen…', okT: 'Aanvraag ontvangen ✓', okP: 'Bedankt! We mailen je binnen één werkdag om de sessie in te plannen.', close: 'Sluiten', err: 'Versturen mislukt. Probeer opnieuw of mail naar info@moregrowth.co', req: 'Vul de verplichte velden in', subject: 'Adviesaanvraag via de website', privacy: 'We gebruiken je gegevens alleen om op je aanvraag te reageren.' }
+    };
+    var t = L[doc.lang] || L.en;
+    var d = document.createElement('dialog');
+    d.className = 'consult';
+    d.setAttribute('aria-labelledby', 'consult-title');
+    d.innerHTML =
+      '<button type="button" class="c-x" aria-label="' + t.close + '">&times;</button>' +
+      '<form class="c-form" novalidate>' +
+        '<h2 id="consult-title">' + t.title + '</h2><p class="c-sub">' + t.sub + '</p>' +
+        '<fieldset class="c-interest"><legend>' + t.interest + '</legend>' +
+          ['ai', 'mk', 'both'].map(function (k, i) { return '<label><input type="radio" name="interest" value="' + k + '"' + (i === 2 ? ' checked' : '') + '><span>' + t[k] + '</span></label>'; }).join('') +
+        '</fieldset>' +
+        '<div class="c-grid">' +
+          '<label class="c-f"><span>' + t.name + ' *</span><input name="name" autocomplete="name" required></label>' +
+          '<label class="c-f"><span>' + t.email + ' *</span><input name="email" type="email" autocomplete="email" inputmode="email" dir="ltr" required></label>' +
+          '<label class="c-f"><span>' + t.company + ' *</span><input name="company" autocomplete="organization" required></label>' +
+          '<label class="c-f"><span>' + t.phone + ' <em>' + t.opt + '</em></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="' + t.ph + '"></label>' +
+        '</div>' +
+        '<label class="c-f"><span>' + t.msg + ' <em>' + t.opt + '</em></span><textarea name="message" rows="3"></textarea></label>' +
+        '<input type="checkbox" name="botcheck" class="c-hp" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+        '<p class="c-err" role="alert" hidden></p>' +
+        '<button type="submit" class="btn btn-primary c-send">' + t.send + '</button>' +
+        '<p class="c-priv">' + t.privacy + '</p>' +
+      '</form>' +
+      '<div class="c-ok" hidden><div class="c-ok-ic" aria-hidden="true">✓</div><h2>' + t.okT + '</h2><p>' + t.okP + '</p><button type="button" class="btn btn-ghost c-done">' + t.close + '</button></div>';
+    document.body.appendChild(d);
+    var form = d.querySelector('form'), ok = d.querySelector('.c-ok'), err = d.querySelector('.c-err'), send = d.querySelector('.c-send');
+    function open(interest) {
+      form.hidden = false; ok.hidden = true; err.hidden = true;
+      var r = form.querySelector('input[value="' + (interest || 'both') + '"]'); if (r) r.checked = true;
+      d.showModal(); doc.classList.add('modal-open');
+      setTimeout(function () { form.name.focus(); }, 50);
+      (window.dataLayer = window.dataLayer || []).push({ event: 'consult_open', interest: interest || 'both' });
+    }
+    function close() { d.close(); }
+    d.addEventListener('close', function () { doc.classList.remove('modal-open'); });
+    links.forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); open(a.getAttribute('data-consult')); }); });
+    d.querySelector('.c-x').addEventListener('click', close);
+    d.querySelector('.c-done').addEventListener('click', close);
+    d.addEventListener('click', function (e) { if (e.target === d) close(); });
+    function done(interest) {
+      form.reset(); form.hidden = true; ok.hidden = false; ok.querySelector('.c-done').focus();
+      (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', interest: interest });
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var bad = null;
+      ['name', 'email', 'company'].forEach(function (n) { var f = form[n]; var v = f.value.trim(); var inv = !v || (n === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)); f.setAttribute('aria-invalid', inv ? 'true' : 'false'); if (inv && !bad) bad = f; });
+      if (bad) { err.textContent = t.req; err.hidden = false; bad.focus(); return; }
+      if (form.botcheck.checked) return;
+      err.hidden = true;
+      var data = { name: form.name.value.trim(), email: form.email.value.trim(), company: form.company.value.trim(), phone: form.phone.value.trim(), interest: t[form.interest.value], message: form.message.value.trim(), page: location.href };
+      if (!FORM_KEY) {
+        var body = Object.keys(data).map(function (k) { return k + ': ' + data[k]; }).join('\n');
+        location.href = 'mailto:info@moregrowth.co?subject=' + encodeURIComponent(t.subject + ': ' + data.company) + '&body=' + encodeURIComponent(body);
+        done(form.interest.value);
+        return;
+      }
+      send.disabled = true; send.textContent = t.sending;
+      var payload = Object.assign({ access_key: FORM_KEY, subject: t.subject + ': ' + data.company, from_name: 'moregrowth.co', replyto: data.email, botcheck: false }, data);
+      var interest = form.interest.value;
+      fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) { if (j && j.success) done(interest); else throw 0; })
+        .catch(function () { err.textContent = t.err; err.hidden = false; })
+        .then(function () { send.disabled = false; send.textContent = t.send; });
+    });
+  })();
+
   /* cookie consent (Google Consent Mode v2) */
   (function () {
     var stored = null;

@@ -23,7 +23,7 @@ AR = dict(
     nav_cta="احجز استشارة",
     eyebrow="شريك جوجل المعتمد · Google Partner",
     h1="نمو أذكى لمؤسستك: <em>ذكاء اصطناعي</em> يعمل، وتسويق يحقق نتائج",
-    lead="مورجروث للحلول الرقمية تساعد المؤسسات والشركات في العالم العربي على تبنّي الذكاء الاصطناعي بشكل عملي، وتحويله إلى وفورات في الوقت والتكلفة ونمو حقيقي في المبيعات، إلى جانب خبرتنا في التسويق الرقمي والإعلانات المدفوعة.",
+    lead="مورجروث للحلول الرقمية تساعد المؤسسات والشركات في العالم العربي على تبنّي الذكاء الاصطناعي بشكل عملي، لتوفير الوقت والتكلفة ونمو حقيقي في المبيعات، إلى جانب خبرتنا في التسويق الرقمي والإعلانات المدفوعة.",
     btn1="ابدأ بتقييم جاهزية مجاني", btn2="استكشف خدماتنا",
     badge_partner="شريك جوجل للإعلانات: تحقق من الاعتماد",
     badge_bi="فريق يعمل بالعربية والإنجليزية",
@@ -57,7 +57,7 @@ AR = dict(
         ("نوسّع", "تعميم ما ينجح، وتدريب الفريق، ومتابعة مستمرة."),
     ],
     sectors_h="قطاعات نخدمها",
-    sectors=["الشركات الصغيرة والمتوسطة", "التجارة الإلكترونية", "المنظمات غير الحكومية", "التعليم والتدريب", "الخدمات المهنية", "الشركات الناشئة"],
+    sectors=["الشركات الصغيرة والمتوسطة", "التجارة الإلكترونية", "الهيئات الحكومية", "التعليم والتدريب", "تطبيقات الموبايل", "الشركات الناشئة"],
     why_k="لماذا مورجروث", why_h="شريك يفهم السوق العربي ويقيس النتائج",
     why=[
         ("شريك جوجل المعتمد", "اعتماد رسمي في إدارة إعلانات جوجل أدز وفق معايير الأداء الخاصة بجوجل."),
@@ -121,7 +121,7 @@ EN = dict(
         ("Scale", "Roll out what works, train your team, keep improving."),
     ],
     sectors_h="Who we work with",
-    sectors=["SMEs", "E-commerce", "NGOs & development programs", "Education & training", "Professional services", "Startups"],
+    sectors=["SMEs", "E-commerce", "Government entities", "Education & training", "Mobile apps", "Startups"],
     why_k="Why MoreGrowth", why_h="A partner that knows the Arab market and measures results",
     why=[
         ("Certified Google Partner", "Officially recognized for managing Google Ads to Google's performance standards."),
