@@ -17,11 +17,24 @@ LINE = {
  "shield": '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/>',
 }
 AI_ICONS = ["roadmap", "flow", "chat", "spark", "learn", "shield"]
+AI_SKIP = 3  # "AI-powered marketing" lives in the marketing track
+LINE.update({
+ "ads": '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8 11h6M11 8v6"/>',
+ "mega": '<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/>',
+ "seo": '<path d="M3 20h18"/><path d="M6 16v-4M11 16V8M16 16v-6"/><path d="m5 9 5-4 4 3 5-4"/>',
+ "pen": '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/>',
+ "cal": '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/>',
+ "compass": '<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/>',
+})
+MK_ICONS = ["ads", "mega", "seo", "pen", "cal", "compass"]
 ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 CLIENTS = [("jawwal", "Jawwal"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
            ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("famkeez", "Famkeez"), ("one-studio", "One Studio")]
 
 AR.update(
+    t1="المسار الأول", t2="المسار الثاني",
+    t_ai_cta="اطلب تقييم الجاهزية", t_mk_cta="خطّط حملتك القادمة",
+    t_note="المساران يعملان معًا: الذكاء الاصطناعي يجعل تسويقك أذكى، وبيانات التسويق تجعل الذكاء الاصطناعي أكثر فائدة.",
     pill_new="جديد", pill="خدمات التحول للذكاء الاصطناعي للمؤسسات",
     h1_a="نُعيد تشكيل", h1_b="بقوة", h1_grad="الذكاء الاصطناعي",
     rot=["التسويق", "المبيعات", "العمليات", "خدمة العملاء"],
@@ -41,6 +54,9 @@ AR.update(
     theme_label="تبديل الوضع الفاتح والداكن", lang_label="اللغة",
 )
 EN.update(
+    t1="Track 1", t2="Track 2",
+    t_ai_cta="Get an AI readiness check", t_mk_cta="Plan your next campaign",
+    t_note="The two tracks work together: AI makes your marketing smarter, and marketing data makes AI more useful.",
     pill_new="New", pill="Enterprise AI transformation services",
     h1_a="We reshape your", h1_b="with", h1_grad="AI",
     rot=["marketing", "sales", "operations", "customer service"],
@@ -59,7 +75,10 @@ EN.update(
     badge_bi="Multilingual team: Arabic, English & Dutch",
     theme_label="Toggle light and dark mode", lang_label="Language",
 )
-NL.update(theme_label="Schakel tussen licht en donker", lang_label="Taal")
+NL.update(theme_label="Schakel tussen licht en donker", lang_label="Taal",
+    t1="Spoor 1", t2="Spoor 2",
+    t_ai_cta="Vraag een AI-readiness check aan", t_mk_cta="Plan je volgende campagne",
+    t_note="De twee sporen versterken elkaar: AI maakt je marketing slimmer, en marketingdata maakt AI waardevoller.")
 LANGS = [("ar", "/", "عربي", "العربية"), ("en", "/en/", "EN", "English"), ("nl", "/nl/", "NL", "Nederlands")]
 SUN = '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
 MOON = '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'
@@ -89,14 +108,13 @@ def page(t):
     con_html = "".join(con) + '<div class="msg ai typing-row" style="display:none;opacity:1;transform:none;width:max-content"><span class="typing"><i></i><i></i><i></i></span></div>'
     # clients marquee (duplicated for seamless loop)
     tiles = "".join(f'<div class="logo-tile"><img src="{r}assets/clients/{f}.png" alt="{n}" loading="lazy" height="56"></div>' for f, n in CLIENTS)
-    # ai cards
-    ai_cards = "".join(
-        f'<article class="card" data-reveal style="--d:{(i % 3) * 0.08:.2f}s"><div class="ic">{svg_line(AI_ICONS[i])}</div><h3>{a}</h3><p>{b}</p></article>'
-        for i, (a, b) in enumerate(t["ai"]))
-    flow = "".join(f'<div><b>{i + 1}</b>{a}<span>{s}</span></div>' for i, (a, s) in enumerate(t["flow"]))
-    chips = "".join(
-        f'<div class="chip" data-reveal style="--d:{(i % 3) * 0.08:.2f}s"><span class="n">{i + 1:02d}</span><div><strong>{a}</strong><span>{b}</span></div></div>'
-        for i, (a, b) in enumerate(t["mk"]))
+    # two service tracks
+    def track_items(items, icons, skip=None):
+        return "".join(
+            f'<li><span class="ic">{svg_line(icons[i])}</span><div><strong>{a}</strong><span>{b}</span></div></li>'
+            for i, (a, b) in enumerate(items) if i != skip)
+    ai_items = track_items(t["ai"], AI_ICONS, AI_SKIP)
+    mk_items = track_items(t["mk"], MK_ICONS)
     steps = "".join(f'<div class="tstep" data-reveal style="--d:{i * 0.1:.1f}s"><div class="dot">{i + 1:02d}</div><div><h3>{a}</h3><p>{b}</p></div></div>' for i, (a, b) in enumerate(t["steps"]))
     sectors = "".join(f"<span>{s}</span>" for s in t["sectors"])
     why = "".join(f'<article class="card" data-reveal style="--d:{i * 0.1:.1f}s"><div class="big grad">{t["why_big"][i]}</div><h3>{a}</h3><p>{b}</p></article>' for i, (a, b) in enumerate(t["why"]))
@@ -210,18 +228,25 @@ def page(t):
       <h2 class="split">{t['svc_h']}</h2>
       <p data-reveal>{t['svc_p']}</p>
     </div>
-    <div class="bento">
-      <article class="card hero-card" data-reveal>
-        <div><span class="tag">{t['ai_tag']}</span><h3>{t['ai_h']}</h3><p>{t['ai_p']}</p></div>
-        <div class="flow" aria-label="{t['ai_flow_h']}">{flow}</div>
+    <div class="svc-tracks">
+      <article class="svc-track t-ai" data-reveal>
+        <div class="t-head"><span class="t-num">01</span><span class="t-label">{t['t1']}</span></div>
+        <span class="tag">{t['ai_tag']}</span>
+        <h3>{t['ai_h']}</h3>
+        <p class="t-lead">{t['ai_p']}</p>
+        <ul class="t-list">{ai_items}</ul>
+        <a class="t-cta" href="#contact">{t['t_ai_cta']}{ARROW}</a>
       </article>
-      {ai_cards}
+      <article class="svc-track t-mk" data-reveal style="--d:.1s">
+        <div class="t-head"><span class="t-num">02</span><span class="t-label">{t['t2']}</span></div>
+        <span class="tag">{t['mk_tag']}</span>
+        <h3>{t['mk_h']}</h3>
+        <p class="t-lead">{t['mk_p']}</p>
+        <ul class="t-list">{mk_items}</ul>
+        <a class="t-cta" href="#contact">{t['t_mk_cta']}{ARROW}</a>
+      </article>
     </div>
-    <div class="sub-head">
-      <div><span class="tag">{t['mk_tag']}</span><h3 class="split">{t['mk_h']}</h3></div>
-      <p style="color:var(--muted);margin:0;max-width:44ch" data-reveal>{t['mk_p']}</p>
-    </div>
-    <div class="chips">{chips}</div>
+    <p class="t-note" data-reveal><span aria-hidden="true">+</span>{t['t_note']}</p>
   </div>
 </section>
 
