@@ -57,7 +57,7 @@ AR = dict(
         ("نوسّع", "تعميم ما ينجح، وتدريب الفريق، ومتابعة مستمرة."),
     ],
     sectors_h="قطاعات نخدمها",
-    sectors=["الشركات الصغيرة والمتوسطة", "التجارة الإلكترونية", "المنظمات غير الحكومية", "التعليم والتدريب", "الخدمات المهنية", "الشركات الناشئة"],
+    sectors=["الشركات الصغيرة والمتوسطة", "التجارة الإلكترونية", "الهيئات الحكومية", "التعليم والتدريب", "تطبيقات الموبايل", "الشركات الناشئة"],
     why_k="لماذا مورجروث", why_h="شريك يفهم السوق العربي ويقيس النتائج",
     why=[
         ("شريك جوجل المعتمد", "اعتماد رسمي في إدارة إعلانات جوجل أدز وفق معايير الأداء الخاصة بجوجل."),
@@ -121,7 +121,7 @@ EN = dict(
         ("Scale", "Roll out what works, train your team, keep improving."),
     ],
     sectors_h="Who we work with",
-    sectors=["SMEs", "E-commerce", "NGOs & development programs", "Education & training", "Professional services", "Startups"],
+    sectors=["SMEs", "E-commerce", "Government entities", "Education & training", "Mobile apps", "Startups"],
     why_k="Why MoreGrowth", why_h="A partner that knows the Arab market and measures results",
     why=[
         ("Certified Google Partner", "Officially recognized for managing Google Ads to Google's performance standards."),
