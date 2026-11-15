@@ -159,5 +159,37 @@
     try { localStorage.setItem('mg-theme', next); } catch (e) {}
   });
 
+  /* cookie consent (Google Consent Mode v2) */
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('mg-consent'); } catch (e) {}
+    if (stored === 'granted' || stored === 'denied') return;
+    var T = {
+      ar: ['نستخدم ملفات تعريف الارتباط لقياس زيارات الموقع وتحسين تجربتك. هل توافق؟', 'موافق', 'رفض'],
+      en: ['We use cookies to measure site traffic and improve your experience. Do you accept?', 'Accept', 'Decline'],
+      nl: ['We gebruiken cookies om websiteverkeer te meten en je ervaring te verbeteren. Ga je akkoord?', 'Accepteren', 'Weigeren']
+    };
+    var t = T[doc.lang] || T.en;
+    var box = document.createElement('div');
+    box.className = 'consent';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-live', 'polite');
+    box.innerHTML = '<p></p><div class="consent-actions"><button type="button" class="consent-no"></button><button type="button" class="consent-yes"></button></div>';
+    box.querySelector('p').textContent = t[0];
+    box.querySelector('.consent-yes').textContent = t[1];
+    box.querySelector('.consent-no').textContent = t[2];
+    function choose(v) {
+      try { localStorage.setItem('mg-consent', v); } catch (e) {}
+      if (v === 'granted' && typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+        (window.dataLayer = window.dataLayer || []).push({ event: 'consent_granted' });
+      }
+      box.remove();
+    }
+    box.querySelector('.consent-yes').addEventListener('click', function () { choose('granted'); });
+    box.querySelector('.consent-no').addEventListener('click', function () { choose('denied'); });
+    document.body.appendChild(box);
+  })();
+
   var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
 })();
