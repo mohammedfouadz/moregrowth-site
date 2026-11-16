@@ -34,7 +34,7 @@ CLIENTS = [("jawwal", "Jawwal"), ("necklace", "Necklace"), ("gulf-co", "The Gulf
            ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("famkeez", "Famkeez"), ("one-studio", "One Studio")]
 
 AR.update(
-    t1="المسار الأول", t2="المسار الثاني",
+    t1="المسار الأول", t2="المسار الثاني", tk_start="ابدأ من هنا", tk_partner="شريك جوجل", tk_meet="نقطة الالتقاء", tk_ai="ذكاء اصطناعي", tk_mk="تسويق",
     t_ai_cta="اطلب تقييم الجاهزية", t_mk_cta="خطّط حملتك القادمة",
     t_note="المساران يعملان معًا: الذكاء الاصطناعي يجعل تسويقك أذكى، وبيانات التسويق تجعل الذكاء الاصطناعي أكثر فائدة.",
     pill_new="جديد", pill="خدمات التحول للذكاء الاصطناعي للمؤسسات",
@@ -56,7 +56,7 @@ AR.update(
     theme_label="تبديل الوضع الفاتح والداكن", lang_label="اللغة",
 )
 EN.update(
-    t1="Track 1", t2="Track 2",
+    t1="Track 01", t2="Track 02", tk_start="Start here", tk_partner="Google Partner", tk_meet="Where they meet", tk_ai="AI", tk_mk="Marketing",
     t_ai_cta="Get an AI readiness check", t_mk_cta="Plan your next campaign",
     t_note="The two tracks work together: AI makes your marketing smarter, and marketing data makes AI more useful.",
     pill_new="New", pill="Enterprise AI transformation services",
@@ -78,7 +78,7 @@ EN.update(
     theme_label="Toggle light and dark mode", lang_label="Language",
 )
 NL.update(theme_label="Schakel tussen licht en donker", lang_label="Taal",
-    t1="Spoor 1", t2="Spoor 2",
+    t1="Spoor 01", t2="Spoor 02", tk_start="Begin hier", tk_partner="Google Partner", tk_meet="Waar ze samenkomen", tk_ai="AI", tk_mk="Marketing",
     t_ai_cta="Vraag een AI-readiness check aan", t_mk_cta="Plan je volgende campagne",
     t_note="De twee sporen versterken elkaar: AI maakt je marketing slimmer, en marketingdata maakt AI waardevoller.")
 LANGS = [("ar", "/", "عربي", "العربية"), ("en", "/en/", "EN", "English"), ("nl", "/nl/", "NL", "Nederlands")]
@@ -112,12 +112,19 @@ def page(t, privacy=False):
     # clients marquee (duplicated for seamless loop)
     tiles = "".join(f'<div class="logo-tile"><img src="{r}assets/clients/{f}.png" alt="{n}" loading="lazy" height="56"></div>' for f, n in CLIENTS)
     # two service tracks
-    def track_items(items, icons, skip=None):
-        return "".join(
-            f'<li><span class="ic">{svg_line(icons[i])}</span><div><strong>{a}</strong><span>{b}</span></div></li>'
-            for i, (a, b) in enumerate(items) if i != skip)
-    ai_items = track_items(t["ai"], AI_ICONS, AI_SKIP)
-    mk_items = track_items(t["mk"], MK_ICONS)
+    def track_items(items, icons, kind, skip=None):
+        out, n = [], 0
+        for i, (a, b) in enumerate(items):
+            if i == skip:
+                continue
+            feat = kind == "ai" and n == 0
+            badge = f'<span class="tk-badge">{t["tk_start"]}</span>' if feat else (f'<span class="tk-badge">{t["tk_partner"]}</span>' if kind == "mk" and n == 0 else "")
+            out.append(f'<li class="tk-tile{" feat" if feat else ""}" style="--i:{n}"><span class="tk-ic">{svg_line(icons[i])}</span><div><strong>{a}{badge}</strong><span>{b}</span></div></li>')
+            n += 1
+        return "".join(out)
+    ai_items = track_items(t["ai"], AI_ICONS, "ai", AI_SKIP)
+    mk_items = track_items(t["mk"], MK_ICONS, "mk")
+    shared = t["ai"][AI_SKIP]
     steps = "".join(f'<div class="tstep" data-reveal style="--d:{i * 0.1:.1f}s"><div class="dot">{i + 1:02d}</div><div><h3>{a}</h3><p>{b}</p></div></div>' for i, (a, b) in enumerate(t["steps"]))
     sectors = "".join(f"<span>{s}</span>" for s in t["sectors"])
     why = "".join(f'<article class="card" data-reveal style="--d:{i * 0.1:.1f}s"><div class="big grad">{t["why_big"][i]}</div><h3>{a}</h3><p>{b}</p></article>' for i, (a, b) in enumerate(t["why"]))
@@ -168,6 +175,7 @@ def page(t, privacy=False):
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{r}assets/style.css">
 <link rel="stylesheet" href="{r}assets/glass.css">
+<link rel="stylesheet" href="{r}assets/tracks.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">{ld}</script>
 </head>
@@ -235,25 +243,42 @@ def page(t, privacy=False):
       <h2 class="split">{t['svc_h']}</h2>
       <p data-reveal>{t['svc_p']}</p>
     </div>
-    <div class="svc-tracks">
-      <article class="svc-track t-ai" data-reveal>
-        <div class="t-head"><span class="t-num">01</span><span class="t-label">{t['t1']}</span></div>
-        <span class="tag">{t['ai_tag']}</span>
+    <div class="tk-tracks">
+      <article class="tk-panel ai" data-reveal data-tilt>
+        <div class="tk-ring" aria-hidden="true"></div><div class="tk-spot" aria-hidden="true"></div>
+        <div class="tk-top">
+          <div class="tk-orb" aria-hidden="true"><span></span>{svg_line('spark')}</div>
+          <div class="tk-meta"><span class="tk-num">{t['t1']}</span><span class="tk-tag">{t['ai_tag']}</span></div>
+        </div>
         <h3>{t['ai_h']}</h3>
-        <p class="t-lead">{t['ai_p']}</p>
-        <ul class="t-list">{ai_items}</ul>
-        <a class="t-cta" href="{mailto}" data-consult="ai">{t['t_ai_cta']}{ARROW}</a>
+        <p class="tk-lead">{t['ai_p']}</p>
+        <ul class="tk-grid">{ai_items}</ul>
+        <a class="tk-cta" href="{mailto}" data-consult="ai">{t['t_ai_cta']}{ARROW}</a>
       </article>
-      <article class="svc-track t-mk" data-reveal style="--d:.1s">
-        <div class="t-head"><span class="t-num">02</span><span class="t-label">{t['t2']}</span></div>
-        <span class="tag">{t['mk_tag']}</span>
+      <div class="tk-bridge" aria-hidden="true">
+        <svg class="tk-flow" viewBox="0 0 40 400" preserveAspectRatio="none"><path class="rail" d="M20 0V400"/><path class="pulse up" d="M20 400V0"/><path class="pulse down" d="M20 0V400"/></svg>
+        <div class="tk-knot">+</div>
+      </div>
+      <article class="tk-panel mk" data-reveal data-tilt style="--d:.12s">
+        <div class="tk-ring" aria-hidden="true"></div><div class="tk-spot" aria-hidden="true"></div>
+        <div class="tk-top">
+          <div class="tk-orb" aria-hidden="true"><span></span>{svg_line('seo')}</div>
+          <div class="tk-meta"><span class="tk-num">{t['t2']}</span><span class="tk-tag">{t['mk_tag']}</span></div>
+        </div>
         <h3>{t['mk_h']}</h3>
-        <p class="t-lead">{t['mk_p']}</p>
-        <ul class="t-list">{mk_items}</ul>
-        <a class="t-cta" href="{mailto}" data-consult="mk">{t['t_mk_cta']}{ARROW}</a>
+        <p class="tk-lead">{t['mk_p']}</p>
+        <ul class="tk-grid">{mk_items}</ul>
+        <a class="tk-cta" href="{mailto}" data-consult="mk">{t['t_mk_cta']}{ARROW}</a>
       </article>
     </div>
-    <p class="t-note" data-reveal><span aria-hidden="true">+</span>{t['t_note']}</p>
+    <div class="tk-meet" data-reveal>
+      <div class="tk-chip c-ai"><i></i>{t['tk_ai']}</div>
+      <div class="tk-line l1" aria-hidden="true"></div>
+      <div class="tk-core"><span class="tk-k">{t['tk_meet']}</span><strong>{shared[0]}</strong><span class="tk-d">{shared[1]}</span></div>
+      <div class="tk-line l2" aria-hidden="true"></div>
+      <div class="tk-chip c-mk"><i></i>{t['tk_mk']}</div>
+    </div>
+    <p class="tk-note" data-reveal>{t['t_note']}</p>
   </div>
 </section>
 

@@ -11,7 +11,7 @@ NL = dict(
     btn1="Gratis AI-readiness check", btn2="Bekijk onze diensten",
     badge_partner="Google Ads Partner: bekijk onze status",
     badge_bi="Meertalig team: Arabisch, Engels & Nederlands",
-    svc_k="Diensten", svc_h="Twee sporen die elkaar versterken",
+    svc_k="Diensten", svc_h="Twee sporen voor je groei",
     svc_p="We combineren jarenlange praktijkervaring in marketing met toegepaste AI-kennis, zodat technologie jouw bedrijfsdoelen dient en niet andersom.",
     ai_tag="AI-transformatie", ai_h="AI voor organisaties",
     ai_p="Van idee tot implementatie: we bepalen waar AI echte waarde oplevert in jouw organisatie en bouwen het stap voor stap met je op.",

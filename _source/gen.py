@@ -91,7 +91,7 @@ EN = dict(
     btn1="Get a free AI readiness check", btn2="Explore services",
     badge_partner="Google Ads Partner: verify our status",
     badge_bi="Bilingual team: Arabic & English",
-    svc_k="Services", svc_h="Two connected tracks for your growth",
+    svc_k="Services", svc_h="Two tracks for your growth",
     svc_p="We combine years of hands-on marketing experience with applied AI know-how, so technology serves your business goals, not the other way round.",
     ai_tag="AI transformation", ai_h="AI for organizations",
     ai_p="From idea to implementation: we find where AI creates real value in your organization and build it with you, step by step.",

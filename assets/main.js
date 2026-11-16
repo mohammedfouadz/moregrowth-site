@@ -289,5 +289,17 @@
     }
   })();
 
+  /* service tracks: pointer spotlight + gentle tilt */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('[data-tilt]').forEach(function (p) {
+      p.addEventListener('pointermove', function (e) {
+        var r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, yy = (e.clientY - r.top) / r.height;
+        p.style.setProperty('--mx', (x * 100) + '%'); p.style.setProperty('--my', (yy * 100) + '%');
+        p.style.setProperty('--ry', ((x - .5) * 5) + 'deg'); p.style.setProperty('--rx', ((.5 - yy) * 4) + 'deg');
+      });
+      p.addEventListener('pointerleave', function () { p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
   var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
 })();
