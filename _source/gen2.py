@@ -5,6 +5,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from icons import ICONS as I
 from gen import AR, EN, SITE, PARTNER, EMAIL, SOC
 from nl import NL
+import re
+from privacy import PRIVACY, UPDATED
 
 OUT = sys.argv[1]
 
@@ -88,10 +90,11 @@ def svg_line(k):
     return f'<svg viewBox="0 0 24 24" aria-hidden="true">{LINE[k]}</svg>'
 
 
-def page(t):
-    r = t["root"]
+def page(t, privacy=False):
+    sub = "privacy/" if privacy else ""
+    r = t["root"] + ("../" if privacy else "")
     mailto = f"mailto:{EMAIL}?subject={quote(t['mail_subject'])}"
-    nav = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in t["nav"])
+    nav = "".join(f'<li><a href="{(t["path"] + h) if privacy else h}">{l}</a></li>' for h, l in t["nav"])
     rot = "".join(f'<span class="{"on" if i == 0 else ""}">{w}</span>' for i, w in enumerate(t["rot"]))
     # console
     con = []
@@ -121,7 +124,7 @@ def page(t):
     values = "".join(f'<div data-reveal style="--d:{i * 0.07:.2f}s"><strong>{a}</strong><span>{b}</span></div>' for i, (a, b) in enumerate(t["values"]))
     soc_footer = "".join(f'<a href="{u}" target="_blank" rel="noopener" aria-label="{n}">{I[k]}</a>' for k, n, u in SOC)
     soc_contact = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{I[k]}<span>{n}</span></a></li>' for k, n, u in SOC[:2])
-    url = SITE + t["path"]
+    url = SITE + t["path"] + sub
     ld = ('{"@context":"https://schema.org","@type":"ProfessionalService","name":"MoreGrowth Digital Solutions",'
           '"alternateName":"مورجروث للحلول الرقمية","url":"' + SITE + '/","email":"' + EMAIL + '",'
           '"logo":"' + SITE + '/assets/favicon.png","areaServed":"Middle East and North Africa",'
@@ -129,9 +132,9 @@ def page(t):
     GLOBE = '<svg class="i-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>'
     CHEV = '<svg class="i-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'
     cur = next(x for x in LANGS if x[0] == t["lang"])
-    items = "".join(f'<li><a href="{p}" hreflang="{c}" lang="{c}"' + (' aria-current="page"' if c == t["lang"] else "") + f'><span>{full}</span><b>{short}</b></a></li>' for c, p, short, full in LANGS)
+    items = "".join(f'<li><a href="{p}{sub}" hreflang="{c}" lang="{c}"' + (' aria-current="page"' if c == t["lang"] else "") + f'><span>{full}</span><b>{short}</b></a></li>' for c, p, short, full in LANGS)
     langs = f'<details class="lang-dd"><summary aria-label="{t["lang_label"]}: {cur[3]}">{GLOBE}<span>{cur[2]}</span>{CHEV}</summary><ul>{items}</ul></details>'
-    return f"""<!doctype html>
+    html = f"""<!doctype html>
 <html lang="{t['lang']}" dir="{t['dir']}">
 <head>
 <meta charset="utf-8">
@@ -143,10 +146,10 @@ def page(t):
 <title>{t['title']}</title>
 <meta name="description" content="{t['desc']}">
 <link rel="canonical" href="{url}">
-<link rel="alternate" hreflang="ar" href="{SITE}/">
-<link rel="alternate" hreflang="en" href="{SITE}/en/">
-<link rel="alternate" hreflang="nl" href="{SITE}/nl/">
-<link rel="alternate" hreflang="x-default" href="{SITE}/">
+<link rel="alternate" hreflang="ar" href="{SITE}/{sub}">
+<link rel="alternate" hreflang="en" href="{SITE}/en/{sub}">
+<link rel="alternate" hreflang="nl" href="{SITE}/nl/{sub}">
+<link rel="alternate" hreflang="x-default" href="{SITE}/{sub}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{t['title']}">
 <meta property="og:description" content="{t['desc']}">
@@ -311,13 +314,51 @@ def page(t):
   <div class="wrap foot">
     <img class="logo-d" src="{r}assets/logo-white.png" alt="MoreGrowth" width="640" height="162" loading="lazy"><img class="logo-l" src="{r}assets/logo-navy.png" alt="MoreGrowth" width="640" height="162" loading="lazy">
     <div class="socials">{soc_footer}</div>
-    <div>© <span id="y">2026</span> {t['company']}. {t['rights']}.</div>
+    <div class="foot-meta"><a class="foot-link" href="{t['path']}privacy/">{PRIVACY[t['lang']]['link']}</a><span>© <span id="y">2026</span> {t['company']}. {t['rights']}.</span></div>
   </div>
 </footer>
 <script src="{r}assets/main.js" defer></script>
 </body>
 </html>
 """
+    if privacy:
+        P = PRIVACY[t["lang"]]
+        html = html.replace(f"<title>{t['title']}</title>", f"<title>{P['title']}</title>")
+        html = html.replace(f'content="{t["title"]}"', f'content="{P["title"]}"').replace(f'content="{t["desc"]}"', f'content="{P["desc"]}"')
+        html = re.sub(r'<main id="main">.*?</main>', lambda m: privacy_main(t, P), html, count=1, flags=re.S)
+    return html
+
+
+def privacy_main(t, P):
+    def sec(prefix, items):
+        return "".join(f'<section class="pv-sec" id="{prefix}{i + 1}"><h3>{h}</h3>{b}</section>' for i, (h, b) in enumerate(items))
+    toc = "".join(f'<li><a href="#a{i + 1}">{h}</a></li>' for i, (h, _) in enumerate(P["sections1"]))
+    toc2 = "".join(f'<li><a href="#b{i + 1}">{h}</a></li>' for i, (h, _) in enumerate(P["sections2"]))
+    return f"""<main id="main" class="pv">
+<section class="pv-hero">
+  <div class="wrap">
+    <p class="kicker">{P['kicker']}</p>
+    <h1>{P['h1']}</h1>
+    <p class="pv-updated">{P['updated']}: <time datetime="2026-11-16">{UPDATED[t['lang']]}</time></p>
+    <p class="pv-intro">{P['intro']}</p>
+    <button type="button" class="btn btn-ghost pv-cookie" data-cookie-reset>{P['cookie_btn']}</button>
+  </div>
+</section>
+<div class="wrap pv-layout">
+  <nav class="pv-toc" aria-label="{P['toc']}">
+    <strong>{P['toc']}</strong>
+    <p><a href="#part1">{P['part1']}</a></p><ol>{toc}</ol>
+    <p><a href="#part2">{P['part2']}</a></p><ol>{toc2}</ol>
+  </nav>
+  <div class="pv-body">
+    <h2 id="part1">{P['part1']}</h2>
+    {sec('a', P['sections1'])}
+    <h2 id="part2">{P['part2']}</h2>
+    {sec('b', P['sections2'])}
+    <section class="pv-sec"><h3>{P['changes_h']}</h3>{P['changes']}</section>
+  </div>
+</div>
+</main>"""
 
 
 os.makedirs(os.path.join(OUT, "en"), exist_ok=True)
@@ -325,4 +366,7 @@ open(os.path.join(OUT, "index.html"), "w").write(page(AR))
 open(os.path.join(OUT, "en", "index.html"), "w").write(page(EN))
 os.makedirs(os.path.join(OUT, "nl"), exist_ok=True)
 open(os.path.join(OUT, "nl", "index.html"), "w").write(page(NL))
+for t, d in ((AR, "privacy"), (EN, "en/privacy"), (NL, "nl/privacy")):
+    os.makedirs(os.path.join(OUT, d), exist_ok=True)
+    open(os.path.join(OUT, d, "index.html"), "w").write(page(t, privacy=True))
 print("written v2")
