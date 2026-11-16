@@ -408,3 +408,30 @@ html.modal-open{overflow:hidden}
 .nav-links .lang-dd ul a[aria-current=page] b{color:var(--green)}
 @keyframes dd-in{from{opacity:0;transform:translateY(-6px)}}
 @media (max-width:1000px){.lang-dd{align-self:center;width:100%;display:flex;flex-direction:column;align-items:center}.lang-dd ul{position:static;width:100%;margin-top:8px;box-shadow:none}}
+
+/* footer meta + privacy page */
+.foot-meta{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.foot-link{color:var(--muted);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.foot-link:hover{color:var(--text);border-color:var(--green)}
+.pv-hero{padding:150px 0 40px}
+.pv-hero h1{font-size:clamp(30px,4.4vw,50px);line-height:1.25;margin:0 0 14px;max-width:900px}
+.pv-updated{color:var(--muted);font-size:14px;margin:0 0 18px}
+.pv-intro{color:var(--muted);font-size:18px;max-width:760px;margin:0 0 26px}
+.pv-layout{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:32px;align-items:start;padding-bottom:90px}
+.pv-toc{position:sticky;top:100px;padding:22px;border-radius:var(--radius);background:var(--glass,var(--surface));border:1px solid var(--glass-border,var(--border));-webkit-backdrop-filter:blur(var(--glass-blur,16px));backdrop-filter:blur(var(--glass-blur,16px));font-size:14px}
+.pv-toc strong{display:block;margin-bottom:10px}
+.pv-toc p{margin:14px 0 6px;font-weight:700}
+.pv-toc ol{margin:0;padding-inline-start:20px;color:var(--muted)}
+.pv-toc li{margin:4px 0}
+.pv-toc a{color:inherit;text-decoration:none}
+.pv-toc a:hover{color:var(--green)}
+.pv-body h2{font-size:clamp(22px,2.6vw,30px);margin:10px 0 18px;scroll-margin-top:100px}
+.pv-body h2:not(:first-child){margin-top:48px}
+.pv-sec{padding:24px 26px;margin-bottom:14px;border-radius:var(--radius);background:var(--glass,var(--surface));border:1px solid var(--glass-border,var(--border));-webkit-backdrop-filter:blur(var(--glass-blur,16px));backdrop-filter:blur(var(--glass-blur,16px));scroll-margin-top:100px}
+.pv-sec h3{font-size:19px;margin:0 0 10px}
+.pv-sec p,.pv-sec li{color:var(--muted);font-size:16px;line-height:1.85}
+.pv-sec p{margin:0 0 8px}.pv-sec p:last-child{margin-bottom:0}
+.pv-sec ul{margin:0 0 8px;padding-inline-start:20px}
+.pv-sec strong{color:var(--text)}
+.pv-sec a{color:var(--green)}
+@media (max-width:860px){.pv-layout{grid-template-columns:minmax(0,1fr)}.pv-toc{position:static}.pv-hero{padding-top:120px}}

@@ -249,7 +249,18 @@
   (function () {
     var stored = null;
     try { stored = localStorage.getItem('mg-consent'); } catch (e) {}
+    var reset = document.querySelector('[data-cookie-reset]');
+    if (reset) reset.addEventListener('click', function () {
+      try { localStorage.removeItem('mg-consent'); } catch (e) {}
+      if (stored === 'granted' && typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+      }
+      stored = null;
+      if (!document.querySelector('.consent')) show();
+    });
     if (stored === 'granted' || stored === 'denied') return;
+    show();
+    function show() {
     var T = {
       ar: ['نستخدم ملفات تعريف الارتباط لقياس زيارات الموقع وتحسين تجربتك. هل توافق؟', 'موافق', 'رفض'],
       en: ['We use cookies to measure site traffic and improve your experience. Do you accept?', 'Accept', 'Decline'],
@@ -275,6 +286,7 @@
     box.querySelector('.consent-yes').addEventListener('click', function () { choose('granted'); });
     box.querySelector('.consent-no').addEventListener('click', function () { choose('denied'); });
     document.body.appendChild(box);
+    }
   })();
 
   var y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
