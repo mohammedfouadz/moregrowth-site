@@ -8,22 +8,21 @@ Edit the TEXT dicts and BUDGET below, then re-run.
 import re, pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOAL = 80000
+GOAL = 72000
 RAISED = 0          # update as money comes in
 SUPPORTERS = 0
 
 # (ar, en, amount for 6 months) — salaries/workspace from Mohammed, rest estimates
 BUDGET = [
-    ("رواتب فريق غزة (10 موظفين × 800$ شهريًا)", "Gaza team salaries (10 people × $800/month)", 48000),
+    ("رواتب فريق غزة (10 موظفين × 600 دولار شهريًا)", "Gaza team salaries (10 people × $600/month)", 36000),
+    ("التسويق وجلب العملاء (2,000 دولار شهريًا)", "Marketing to win new clients ($2,000/month)", 12000),
     ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 8000),
-    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 5100),
-    ("غرفة العمل في غزة (600$ شهريًا)", "Gaza workspace room ($600/month)", 3600),
-    ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 3500),
-    ("التسويق وجلب العملاء", "Marketing to win new clients", 3000),
+    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 4800),
+    ("الأدوات والاشتراكات (500 دولار شهريًا)", "Software and subscriptions ($500/month)", 3000),
     ("الأوراق القانونية في عُمان", "Legal papers in Oman", 2500),
-    ("الأدوات والاشتراكات", "Software and subscriptions", 2400),
-    ("مزودو الخدمات (محاسبة، قانون)", "Service providers (accounting, legal)", 2400),
-    ("كهرباء وإنترنت وطاقة بديلة", "Power, internet and backup energy", 1500),
+    ("غرفة العمل في غزة (400 دولار شهريًا)", "Gaza workspace room ($400/month)", 2400),
+    ("مزودو الخدمات المحاسبية والقانونية (300 دولار شهريًا)", "Accounting and legal providers ($300/month)", 1800),
+    ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 1500),
 ]
 assert sum(b[2] for b in BUDGET) == GOAL
 
@@ -39,7 +38,7 @@ T = {
     desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ستة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
     kicker="نعيد البناء",
     h1="دُمّر مكتبنا ثلاث مرات.<br><span class=\"grad\">ولم يُدمَّر الفريق.</span>",
-    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 80,000 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
+    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 72,000 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
     photo_cap="مبنى مكتبنا في غزة بعد القصف",
@@ -63,11 +62,11 @@ T = {
     legal_h="ولنعمل بشكل قانوني سليم، نسوّي أوراقنا",
     legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"]),
            ("في سلطنة عُمان", ["السجل التجاري", "اشتراك غرفة تجارة وصناعة عُمان", "المصاريف التأسيسية"])],
-    budget_k="أين تذهب الأموال", budget_h="80,000 دولار لستة أشهر",
-    budget_p="الرواتب ثلاثة أخماس المبلغ. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
-    total="المجموع", phases=[("المرحلة الأولى: 40,000 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 40,000 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
+    budget_k="أين تذهب الأموال", budget_h="72,000 دولار لستة أشهر",
+    budget_p="الرواتب نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
+    total="المجموع", phases=[("المرحلة الأولى: 36,000 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 36,000 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
-    tiers=[("600$", "شهر كامل في غرفة العمل"), ("800$", "راتب شهر لزميل في غزة"), ("8,000$", "شهر كامل من رواتب الفريق")],
+    tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("6,000$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
     methods_h="طرق الدعم", methods_p="التحويل البنكي إلى حساب الشركة في سلطنة عُمان متاح الآن: راسلنا وسنرسل لك تفاصيل الحساب مباشرة. ونجهّز أيضًا رابطًا للدعم الإلكتروني بالبطاقة.",
     mail_btn="راسلنا للدعم", mail_subj="دعم إعادة بناء مورجروث",
@@ -88,7 +87,7 @@ T = {
     desc="Our office in Gaza was destroyed three times. Help us cover six months of running costs to restart our team and grow across the Arab region.",
     kicker="Rebuild MoreGrowth",
     h1="Our office was destroyed three times.<br><span class=\"grad\">Our team was not.</span>",
-    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $80,000 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
+    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $72,000 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
     photo_cap="Our office building in Gaza after the strike",
@@ -112,11 +111,11 @@ T = {
     legal_h="And we put our legal house in order",
     legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"]),
            ("In Oman", ["Commercial registration", "Oman Chamber of Commerce and Industry membership", "Setup costs"])],
-    budget_k="Where the money goes", budget_h="$80,000 for six months",
-    budget_p="Salaries are three fifths of the total. These figures are our current plan, and we will publish actual spending every month.",
-    total="Total", phases=[("Phase 1: $40,000", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $40,000", "Months four to six, and regional growth.")],
+    budget_k="Where the money goes", budget_h="$72,000 for six months",
+    budget_p="Salaries are half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
+    total="Total", phases=[("Phase 1: $36,000", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $36,000", "Months four to six, and regional growth.")],
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
-    tiers=[("$600", "A full month in the workspace"), ("$800", "One month's salary for a colleague in Gaza"), ("$8,000", "A full month of team salaries")],
+    tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$6,000", "A full month of team salaries")],
     any_amt="Or any amount you choose",
     methods_h="Ways to give", methods_p="Bank transfer to our company account in Oman is open now: email us and we will send you the account details. A card payment link is on its way.",
     mail_btn="Email us to give", mail_subj="Supporting the MoreGrowth rebuild",
