@@ -37,7 +37,8 @@ T = {
     title="نعيد البناء | ادعم عودة فريق مورجروث في غزة",
     desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ستة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
     kicker="نعيد البناء",
-    h1="دُمّر مكتبنا ثلاث مرات.<br><span class=\"grad\">ولم يُدمَّر الفريق.</span>",
+    h1="أعِد فريقنا في غزة إلى العمل،<br><span class=\"grad\">وادعم عائلاتهم من جديد.</span>",
+    sub="دُمّر مكتبنا ثلاث مرات. ولم يُدمَّر الفريق.",
     lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 67,200 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
@@ -86,7 +87,8 @@ T = {
     title="Rebuild MoreGrowth | Help our Gaza team get back to work",
     desc="Our office in Gaza was destroyed three times. Help us cover six months of running costs to restart our team and grow across the Arab region.",
     kicker="Rebuild MoreGrowth",
-    h1="Our office was destroyed three times.<br><span class=\"grad\">Our team was not.</span>",
+    h1="Bring our Gaza team back to work,<br><span class=\"grad\">and support their families again.</span>",
+    sub="Our office was destroyed three times. Our team was not.",
     lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $67,200 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
@@ -164,6 +166,7 @@ def body(lang, t):
     <div>
       <p class="kicker">{t["kicker"]}</p>
       <h1>{t["h1"]}</h1>
+      <p class="rb-hsub">{t["sub"]}</p>
       <p class="rb-lead">{t["lead"]}</p>
       <div class="rb-meter" role="img" aria-label="{RAISED} / {GOAL}"><div class="rb-meter-bar"><i style="--w:{max(pct,1)}%"></i></div><p>{meter_txt}</p></div>
       <div class="rb-ctas"><a class="btn btn-primary" href="#support" data-rb-cta>{t["cta"]} {ARROW}</a><a class="btn btn-ghost" href="#story">{t["cta2"]}</a></div>
