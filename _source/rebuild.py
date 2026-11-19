@@ -55,6 +55,13 @@ T = {
     before="قبل الحرب", after="بعد القصف", ph_before="صورة المكتب قبل الحرب (قريبًا)",
     tl=[("المرة الأولى", "التاريخ قريبًا"), ("المرة الثانية", "التاريخ قريبًا"), ("المرة الثالثة", "التاريخ قريبًا")],
     team_k="الفريق", team_h="الوجوه التي ستعود إلى العمل", team_p="نشارك صور زملائنا بموافقتهم.", ph_member="زميل من الفريق",
+    impact_k="مسؤوليتنا المجتمعية", impact_h="لم نكن شركة أرباح فقط",
+    impact_p="جزء من عملنا كان دائمًا لمجتمعنا في غزة، وإعادة الفريق تعني عودة هذا الأثر أيضًا.",
+    impact=[
+        ("+500", "طالب وخريج في آخر سنة", "قدّمنا دورات تدريبية تعزز ثقافة العمل الحر وبناء الدخل لدى الأفراد وخريجي الجامعات."),
+        ("UCAS", "بالشراكة مع مؤسسات تعليمية", "دعمنا بالشراكة مع مؤسسات مثل الكلية الجامعية للعلوم التطبيقية (UCAS) التسويق والمبيعات لمشاريع نسائية منزلية عديدة، تعزيزًا لدور المرأة في المجتمع."),
+        ("غزة", "مع مجتمع غزة التقني", "ساهمنا في الأعمال الخيرية من خلال مجتمع غزة التقني، كجزء من مسؤوليتنا كشركة."),
+    ],
     plan_k="ما سنبنيه", plan_h="نعيد تشغيل فريق غزة أولًا",
     plan=[
         ("الأولوية", "إعادة تشغيل فريق غزة", "10 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
@@ -105,6 +112,13 @@ T = {
     before="Before the war", after="After the strike", ph_before="Office before the war (coming soon)",
     tl=[("First time", "Date coming soon"), ("Second time", "Date coming soon"), ("Third time", "Date coming soon")],
     team_k="The team", team_h="The people going back to work", team_p="We share our colleagues' photos with their consent.", ph_member="Team member",
+    impact_k="Social responsibility", impact_h="We were never only about profit",
+    impact_p="Part of our work has always gone back to our community in Gaza. Bringing the team back brings that impact back too.",
+    impact=[
+        ("500+", "students and graduates in the last year", "Our training courses build a freelancing culture and help individuals and university graduates earn an income."),
+        ("UCAS", "with education partners", "Together with institutions such as the University College of Applied Sciences (UCAS), we supported marketing and sales for many home-based businesses run by women."),
+        ("Gaza", "with the Gaza tech community", "We contribute to charitable work through Gaza's tech community, as part of our responsibility as a company."),
+    ],
     plan_k="What we will build", plan_h="Restarting our Gaza team comes first",
     plan=[
         ("Priority", "Restart the Gaza team", "Ten of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
@@ -158,6 +172,7 @@ def body(lang, t):
     phases = "".join(f'<div><b>{h}</b><p>{p}</p></div>' for h, p in t["phases"])
     tiers = "".join(f'<a class="rb-tier" href="{mail}" data-reveal style="--d:{k*.08}s"><b>{v}</b><span>{d}</span></a>' for k, (v, d) in enumerate(t["tiers"]))
     trust = "".join(f"<li>{x}</li>" for x in t["trust"])
+    impact = "".join(f'<article class="rb-card rb-impact" data-reveal style="--d:{k*.08}s"><b>{n}</b><span class="rb-tag">{tag}</span><p>{p}</p></article>' for k, (n, tag, p) in enumerate(t["impact"]))
     faq = "".join(f"<details class=\"rb-faq\"><summary>{q}</summary><p>{ans}</p></details>" for q, ans in t["faq"])
     meter_txt = f'<b>{money(RAISED, lang)}</b> {t["raised"]} · {t["of"]} {money(GOAL, lang)}' if RAISED else f'<b>{money(GOAL, lang)}</b> · {t["soon"]}'
     return f'''<main id="main" class="rb">
@@ -194,6 +209,11 @@ def body(lang, t):
 <section class="wrap rb-sec">
   <p class="kicker">{t["team_k"]}</p><h2>{t["team_h"]}</h2><p class="rb-sub">{t["team_p"]}</p>
   <div class="rb-team">{team}</div>
+</section>
+
+<section class="wrap rb-sec">
+  <p class="kicker">{t["impact_k"]}</p><h2>{t["impact_h"]}</h2><p class="rb-sub">{t["impact_p"]}</p>
+  <div class="rb-impacts">{impact}</div>
 </section>
 
 <section class="wrap rb-sec">
