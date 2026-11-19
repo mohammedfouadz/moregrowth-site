@@ -8,22 +8,21 @@ Edit the TEXT dicts and BUDGET below, then re-run.
 import re, pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOAL = 80000
+GOAL = 67200
 RAISED = 0          # update as money comes in
 SUPPORTERS = 0
 
 # (ar, en, amount for 6 months) — salaries/workspace from Mohammed, rest estimates
 BUDGET = [
-    ("رواتب فريق غزة (10 موظفين × 800$ شهريًا)", "Gaza team salaries (10 people × $800/month)", 48000),
-    ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 8000),
-    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 5100),
-    ("غرفة العمل في غزة (600$ شهريًا)", "Gaza workspace room ($600/month)", 3600),
-    ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 3500),
-    ("التسويق وجلب العملاء", "Marketing to win new clients", 3000),
+    ("رواتب فريق غزة (10 موظفين × 600 دولار شهريًا)", "Gaza team salaries (10 people × $600/month)", 36000),
+    ("التسويق وجلب العملاء (2,000 دولار شهريًا)", "Marketing to win new clients ($2,000/month)", 12000),
+    ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 5000),
+    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 3000),
+    ("الأدوات والاشتراكات (500 دولار شهريًا)", "Software and subscriptions ($500/month)", 3000),
     ("الأوراق القانونية في عُمان", "Legal papers in Oman", 2500),
-    ("الأدوات والاشتراكات", "Software and subscriptions", 2400),
-    ("مزودو الخدمات (محاسبة، قانون)", "Service providers (accounting, legal)", 2400),
-    ("كهرباء وإنترنت وطاقة بديلة", "Power, internet and backup energy", 1500),
+    ("غرفة العمل في غزة (400 دولار شهريًا)", "Gaza workspace room ($400/month)", 2400),
+    ("مزودو الخدمات المحاسبية والقانونية (300 دولار شهريًا)", "Accounting and legal providers ($300/month)", 1800),
+    ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 1500),
 ]
 assert sum(b[2] for b in BUDGET) == GOAL
 
@@ -38,8 +37,9 @@ T = {
     title="نعيد البناء | ادعم عودة فريق مورجروث في غزة",
     desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ستة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
     kicker="نعيد البناء",
-    h1="دُمّر مكتبنا ثلاث مرات.<br><span class=\"grad\">ولم يُدمَّر الفريق.</span>",
-    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 80,000 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
+    h1="أعِد فريقنا في غزة إلى العمل،<br><span class=\"grad\">وادعم عائلاتهم من جديد.</span>",
+    sub="دُمّر مكتبنا ثلاث مرات. ولم يُدمَّر الفريق.",
+    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 67,200 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
     photo_cap="مبنى مكتبنا في غزة بعد القصف",
@@ -55,6 +55,13 @@ T = {
     before="قبل الحرب", after="بعد القصف", ph_before="صورة المكتب قبل الحرب (قريبًا)",
     tl=[("المرة الأولى", "التاريخ قريبًا"), ("المرة الثانية", "التاريخ قريبًا"), ("المرة الثالثة", "التاريخ قريبًا")],
     team_k="الفريق", team_h="الوجوه التي ستعود إلى العمل", team_p="نشارك صور زملائنا بموافقتهم.", ph_member="زميل من الفريق",
+    impact_k="مسؤوليتنا المجتمعية", impact_h="لم نكن شركة أرباح فقط",
+    impact_p="جزء من عملنا كان دائمًا لمجتمعنا في غزة، وإعادة الفريق تعني عودة هذا الأثر أيضًا.",
+    impact=[
+        ("+500", "طالب وخريج في آخر سنة", "قدّمنا دورات تدريبية تعزز ثقافة العمل الحر وبناء الدخل لدى الأفراد وخريجي الجامعات."),
+        ("UCAS", "بالشراكة مع حاضنة UCAS", "دعمنا بالشراكة مع مؤسسات مثل حاضنة UCAS التابعة للكلية الجامعية للعلوم التطبيقية التسويق والمبيعات لمشاريع نسائية منزلية عديدة، تعزيزًا لدور المرأة في المجتمع."),
+        ("غزة", "مع مجتمع غزة التقني", "ساهمنا في الأعمال الخيرية من خلال مجتمع غزة التقني، كجزء من مسؤوليتنا كشركة."),
+    ],
     plan_k="ما سنبنيه", plan_h="نعيد تشغيل فريق غزة أولًا",
     plan=[
         ("الأولوية", "إعادة تشغيل فريق غزة", "10 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
@@ -63,11 +70,11 @@ T = {
     legal_h="ولنعمل بشكل قانوني سليم، نسوّي أوراقنا",
     legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"]),
            ("في سلطنة عُمان", ["السجل التجاري", "اشتراك غرفة تجارة وصناعة عُمان", "المصاريف التأسيسية"])],
-    budget_k="أين تذهب الأموال", budget_h="80,000 دولار لستة أشهر",
-    budget_p="الرواتب ثلاثة أخماس المبلغ. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
-    total="المجموع", phases=[("المرحلة الأولى: 40,000 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 40,000 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
+    budget_k="أين تذهب الأموال", budget_h="67,200 دولار لستة أشهر",
+    budget_p="الرواتب نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
+    total="المجموع", phases=[("المرحلة الأولى: 33,600 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 33,600 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
-    tiers=[("600$", "شهر كامل في غرفة العمل"), ("800$", "راتب شهر لزميل في غزة"), ("8,000$", "شهر كامل من رواتب الفريق")],
+    tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("6,000$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
     methods_h="طرق الدعم", methods_p="التحويل البنكي إلى حساب الشركة في سلطنة عُمان متاح الآن: راسلنا وسنرسل لك تفاصيل الحساب مباشرة. ونجهّز أيضًا رابطًا للدعم الإلكتروني بالبطاقة.",
     mail_btn="راسلنا للدعم", mail_subj="دعم إعادة بناء مورجروث",
@@ -87,8 +94,9 @@ T = {
     title="Rebuild MoreGrowth | Help our Gaza team get back to work",
     desc="Our office in Gaza was destroyed three times. Help us cover six months of running costs to restart our team and grow across the Arab region.",
     kicker="Rebuild MoreGrowth",
-    h1="Our office was destroyed three times.<br><span class=\"grad\">Our team was not.</span>",
-    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $80,000 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
+    h1="Bring our Gaza team back to work,<br><span class=\"grad\">and support their families again.</span>",
+    sub="Our office was destroyed three times. Our team was not.",
+    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $67,200 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
     photo_cap="Our office building in Gaza after the strike",
@@ -104,6 +112,13 @@ T = {
     before="Before the war", after="After the strike", ph_before="Office before the war (coming soon)",
     tl=[("First time", "Date coming soon"), ("Second time", "Date coming soon"), ("Third time", "Date coming soon")],
     team_k="The team", team_h="The people going back to work", team_p="We share our colleagues' photos with their consent.", ph_member="Team member",
+    impact_k="Social responsibility", impact_h="We were never only about profit",
+    impact_p="Part of our work has always gone back to our community in Gaza. Bringing the team back brings that impact back too.",
+    impact=[
+        ("500+", "students and graduates in the last year", "Our training courses build a freelancing culture and help individuals and university graduates earn an income."),
+        ("UCAS", "with the UCAS incubator", "Together with partners such as the UCAS incubator at the University College of Applied Sciences, we supported marketing and sales for many home-based businesses run by women."),
+        ("Gaza", "with the Gaza tech community", "We contribute to charitable work through Gaza's tech community, as part of our responsibility as a company."),
+    ],
     plan_k="What we will build", plan_h="Restarting our Gaza team comes first",
     plan=[
         ("Priority", "Restart the Gaza team", "Ten of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
@@ -112,11 +127,11 @@ T = {
     legal_h="And we put our legal house in order",
     legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"]),
            ("In Oman", ["Commercial registration", "Oman Chamber of Commerce and Industry membership", "Setup costs"])],
-    budget_k="Where the money goes", budget_h="$80,000 for six months",
-    budget_p="Salaries are three fifths of the total. These figures are our current plan, and we will publish actual spending every month.",
-    total="Total", phases=[("Phase 1: $40,000", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $40,000", "Months four to six, and regional growth.")],
+    budget_k="Where the money goes", budget_h="$67,200 for six months",
+    budget_p="Salaries are half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
+    total="Total", phases=[("Phase 1: $33,600", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $33,600", "Months four to six, and regional growth.")],
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
-    tiers=[("$600", "A full month in the workspace"), ("$800", "One month's salary for a colleague in Gaza"), ("$8,000", "A full month of team salaries")],
+    tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$6,000", "A full month of team salaries")],
     any_amt="Or any amount you choose",
     methods_h="Ways to give", methods_p="Bank transfer to our company account in Oman is open now: email us and we will send you the account details. A card payment link is on its way.",
     mail_btn="Email us to give", mail_subj="Supporting the MoreGrowth rebuild",
@@ -157,6 +172,7 @@ def body(lang, t):
     phases = "".join(f'<div><b>{h}</b><p>{p}</p></div>' for h, p in t["phases"])
     tiers = "".join(f'<a class="rb-tier" href="{mail}" data-reveal style="--d:{k*.08}s"><b>{v}</b><span>{d}</span></a>' for k, (v, d) in enumerate(t["tiers"]))
     trust = "".join(f"<li>{x}</li>" for x in t["trust"])
+    impact = "".join(f'<article class="rb-card rb-impact" data-reveal style="--d:{k*.08}s"><b>{n}</b><span class="rb-tag">{tag}</span><p>{p}</p></article>' for k, (n, tag, p) in enumerate(t["impact"]))
     faq = "".join(f"<details class=\"rb-faq\"><summary>{q}</summary><p>{ans}</p></details>" for q, ans in t["faq"])
     meter_txt = f'<b>{money(RAISED, lang)}</b> {t["raised"]} · {t["of"]} {money(GOAL, lang)}' if RAISED else f'<b>{money(GOAL, lang)}</b> · {t["soon"]}'
     return f'''<main id="main" class="rb">
@@ -165,6 +181,7 @@ def body(lang, t):
     <div>
       <p class="kicker">{t["kicker"]}</p>
       <h1>{t["h1"]}</h1>
+      <p class="rb-hsub">{t["sub"]}</p>
       <p class="rb-lead">{t["lead"]}</p>
       <div class="rb-meter" role="img" aria-label="{RAISED} / {GOAL}"><div class="rb-meter-bar"><i style="--w:{max(pct,1)}%"></i></div><p>{meter_txt}</p></div>
       <div class="rb-ctas"><a class="btn btn-primary" href="#support" data-rb-cta>{t["cta"]} {ARROW}</a><a class="btn btn-ghost" href="#story">{t["cta2"]}</a></div>
@@ -192,6 +209,11 @@ def body(lang, t):
 <section class="wrap rb-sec">
   <p class="kicker">{t["team_k"]}</p><h2>{t["team_h"]}</h2><p class="rb-sub">{t["team_p"]}</p>
   <div class="rb-team">{team}</div>
+</section>
+
+<section class="wrap rb-sec">
+  <p class="kicker">{t["impact_k"]}</p><h2>{t["impact_h"]}</h2><p class="rb-sub">{t["impact_p"]}</p>
+  <div class="rb-impacts">{impact}</div>
 </section>
 
 <section class="wrap rb-sec">
