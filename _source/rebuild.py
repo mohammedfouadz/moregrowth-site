@@ -8,7 +8,7 @@ Edit the TEXT dicts and BUDGET below, then re-run.
 import re, pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOAL = 72000
+GOAL = 67200
 RAISED = 0          # update as money comes in
 SUPPORTERS = 0
 
@@ -16,8 +16,8 @@ SUPPORTERS = 0
 BUDGET = [
     ("رواتب فريق غزة (10 موظفين × 600 دولار شهريًا)", "Gaza team salaries (10 people × $600/month)", 36000),
     ("التسويق وجلب العملاء (2,000 دولار شهريًا)", "Marketing to win new clients ($2,000/month)", 12000),
-    ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 8000),
-    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 4800),
+    ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 5000),
+    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 3000),
     ("الأدوات والاشتراكات (500 دولار شهريًا)", "Software and subscriptions ($500/month)", 3000),
     ("الأوراق القانونية في عُمان", "Legal papers in Oman", 2500),
     ("غرفة العمل في غزة (400 دولار شهريًا)", "Gaza workspace room ($400/month)", 2400),
@@ -38,7 +38,7 @@ T = {
     desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ستة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
     kicker="نعيد البناء",
     h1="دُمّر مكتبنا ثلاث مرات.<br><span class=\"grad\">ولم يُدمَّر الفريق.</span>",
-    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 72,000 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
+    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 67,200 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
     photo_cap="مبنى مكتبنا في غزة بعد القصف",
@@ -62,9 +62,9 @@ T = {
     legal_h="ولنعمل بشكل قانوني سليم، نسوّي أوراقنا",
     legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"]),
            ("في سلطنة عُمان", ["السجل التجاري", "اشتراك غرفة تجارة وصناعة عُمان", "المصاريف التأسيسية"])],
-    budget_k="أين تذهب الأموال", budget_h="72,000 دولار لستة أشهر",
+    budget_k="أين تذهب الأموال", budget_h="67,200 دولار لستة أشهر",
     budget_p="الرواتب نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
-    total="المجموع", phases=[("المرحلة الأولى: 36,000 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 36,000 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
+    total="المجموع", phases=[("المرحلة الأولى: 33,600 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 33,600 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
     tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("6,000$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
@@ -87,7 +87,7 @@ T = {
     desc="Our office in Gaza was destroyed three times. Help us cover six months of running costs to restart our team and grow across the Arab region.",
     kicker="Rebuild MoreGrowth",
     h1="Our office was destroyed three times.<br><span class=\"grad\">Our team was not.</span>",
-    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $72,000 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
+    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $67,200 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
     photo_cap="Our office building in Gaza after the strike",
@@ -111,9 +111,9 @@ T = {
     legal_h="And we put our legal house in order",
     legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"]),
            ("In Oman", ["Commercial registration", "Oman Chamber of Commerce and Industry membership", "Setup costs"])],
-    budget_k="Where the money goes", budget_h="$72,000 for six months",
+    budget_k="Where the money goes", budget_h="$67,200 for six months",
     budget_p="Salaries are half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
-    total="Total", phases=[("Phase 1: $36,000", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $36,000", "Months four to six, and regional growth.")],
+    total="Total", phases=[("Phase 1: $33,600", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $33,600", "Months four to six, and regional growth.")],
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
     tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$6,000", "A full month of team salaries")],
     any_amt="Or any amount you choose",
