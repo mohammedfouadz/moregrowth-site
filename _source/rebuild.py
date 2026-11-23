@@ -8,21 +8,20 @@ Edit the TEXT dicts and BUDGET below, then re-run.
 import re, pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOAL = 67200
+GOAL = 49400
 RAISED = 0          # update as money comes in
 SUPPORTERS = 0
+DONATE_URL = "https://chuffed.org/"   # Chuffed campaign link; empty = buttons fall back to email
 
 # (ar, en, amount for 6 months) — salaries/workspace from Mohammed, rest estimates
 BUDGET = [
-    ("رواتب فريق غزة (10 موظفين × 600 دولار شهريًا)", "Gaza team salaries (10 people × $600/month)", 36000),
-    ("التسويق وجلب العملاء (2,000 دولار شهريًا)", "Marketing to win new clients ($2,000/month)", 12000),
+    ("رواتب فريق غزة (8 موظفين × 600 دولار شهريًا)", "Gaza team salaries (8 people × $600/month)", 28800),
+    ("التسويق وجلب العملاء (1,500 دولار شهريًا)", "Marketing to win new clients ($1,500/month)", 9000),
     ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 5000),
-    ("احتياطي ورسوم تحويل", "Contingency and transfer fees", 3000),
-    ("الأدوات والاشتراكات (500 دولار شهريًا)", "Software and subscriptions ($500/month)", 3000),
-    ("الأوراق القانونية في عُمان", "Legal papers in Oman", 2500),
     ("غرفة العمل في غزة (400 دولار شهريًا)", "Gaza workspace room ($400/month)", 2400),
-    ("مزودو الخدمات المحاسبية والقانونية (300 دولار شهريًا)", "Accounting and legal providers ($300/month)", 1800),
+    ("الأدوات والاشتراكات (300 دولار شهريًا)", "Software and subscriptions ($300/month)", 1800),
     ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 1500),
+    ("مزودو الخدمات المحاسبية والقانونية (150 دولار شهريًا)", "Accounting and legal providers ($150/month)", 900),
 ]
 assert sum(b[2] for b in BUDGET) == GOAL
 
@@ -39,7 +38,7 @@ T = {
     kicker="نعيد البناء",
     h1="أعِد فريقنا في غزة إلى العمل،<br><span class=\"grad\">وادعم عائلاتهم من جديد.</span>",
     sub="دُمّر مكتبنا ثلاث مرات. ولم يُدمَّر الفريق.",
-    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 67,200 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
+    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 49,400 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
     photo_cap="مبنى مكتبنا في غزة بعد القصف",
@@ -64,27 +63,26 @@ T = {
     ],
     plan_k="ما سنبنيه", plan_h="نعيد تشغيل فريق غزة أولًا",
     plan=[
-        ("الأولوية", "إعادة تشغيل فريق غزة", "10 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
+        ("الأولوية", "إعادة تشغيل فريق غزة", "8 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
         ("بالتوازي", "التوسع في المنطقة العربية", "انطلاقًا من مقرنا المسجل في سلطنة عُمان، نبني قاعدة عملاء في المنطقة في التسويق الرقمي والتحول بالذكاء الاصطناعي، حتى يتحول هذا الدعم إلى دخل مستدام بعد الأشهر الستة."),
     ],
     legal_h="ولنعمل بشكل قانوني سليم، نسوّي أوراقنا",
-    legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"]),
-           ("في سلطنة عُمان", ["السجل التجاري", "اشتراك غرفة تجارة وصناعة عُمان", "المصاريف التأسيسية"])],
-    budget_k="أين تذهب الأموال", budget_h="67,200 دولار لستة أشهر",
-    budget_p="الرواتب نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
-    total="المجموع", phases=[("المرحلة الأولى: 33,600 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 33,600 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
+    legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"])],
+    budget_k="أين تذهب الأموال", budget_h="49,400 دولار لستة أشهر",
+    budget_p="الرواتب أكثر من نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
+    total="المجموع", phases=[("المرحلة الأولى: 24,700 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 24,700 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
-    tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("6,000$", "شهر كامل من رواتب الفريق")],
+    tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("4,800$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
-    methods_h="طرق الدعم", methods_p="التحويل البنكي إلى حساب الشركة في سلطنة عُمان متاح الآن: راسلنا وسنرسل لك تفاصيل الحساب مباشرة. ونجهّز أيضًا رابطًا للدعم الإلكتروني بالبطاقة.",
+    methods_h="تبرّع بأمان", methods_p="نستقبل التبرعات عبر منصة Chuffed للتبرعات الجماعية، والدفع من خلالها آمن وموثوق.", give_btn="تبرّع عبر Chuffed", wa_note="لطرق تبرع أخرى، تواصل معنا عبر واتساب:", secure="تبرّع آمن وموثوق عبر منصة Chuffed",
     mail_btn="راسلنا للدعم", mail_subj="دعم إعادة بناء مورجروث",
-    biz_h="لأصحاب الشركات", biz_p="يمكنك أيضًا دعمنا بشراء خدمات تسويق مقدمًا أو برعاية الحملة، ونصدر لك فاتورة رسمية من شركتنا في عُمان.",
+    biz_h="ادعمنا بالمشاريع وفرص العمل", biz_p="من أقوى أشكال الدعم أن توفّر لفريقنا مشروعًا أو فرصة عمل: حملة تسويقية، أو محتوى، أو إعلانات مدفوعة لشركتك أو لشركة تعرفها. ويمكنك أيضًا شراء خدمات مقدمًا أو رعاية الحملة.",
     trust_k="الشفافية", trust_h="نلتزم أمامك بما يلي",
     trust=["تقرير شهري على هذه الصفحة بما جُمع وما صُرف وما تحقق.", "إن جمعنا أكثر من الهدف نمدد فترة التشغيل، وإن جمعنا أقل نحمي الرواتب أولًا.", "رسالة شكر شخصية لكل داعم، وحائط شكر لمن يرغب بظهور اسمه أو شعار شركته.", "الشركة مسجلة في سلطنة عُمان، ويمكنك التحقق من شراكتنا مع Google من الرابط أدناه."],
     partner_link="ملفنا على Google Partners",
     faq_h="أسئلة شائعة",
     faq=[("هل الدعم معفى من الضريبة؟", "لا. نحن شركة ولسنا جمعية خيرية، لذلك لا يمكننا إصدار إيصال إعفاء ضريبي. يمكن للشركات الحصول على فاتورة إذا اشترت خدمات مقدمًا."),
-         ("من يستلم الأموال؟", "تُستلم الأموال باسم الشركة المسجلة في سلطنة عُمان، وتُحوّل الرواتب منها إلى الفريق في غزة."),
+         ("كيف أتبرع؟", "عبر صفحة حملتنا على منصة Chuffed، والدفع من خلالها آمن وموثوق. تُصرف التبرعات على البنود المعلنة في هذه الصفحة."),
          ("كيف أعرف أين صُرفت مساهمتي؟", "ننشر تقريرًا شهريًا على هذه الصفحة، ونجيب على أي سؤال عبر info@moregrowth.co.")],
     sign="محمد، مؤسس مورجروث", sign_p="شكرًا لأنك قرأت قصتنا. مشاركتك لهذه الصفحة دعم أيضًا.",
 ),
@@ -96,7 +94,7 @@ T = {
     kicker="Rebuild MoreGrowth",
     h1="Bring our Gaza team back to work,<br><span class=\"grad\">and support their families again.</span>",
     sub="Our office was destroyed three times. Our team was not.",
-    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $67,200 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
+    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $49,400 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
     photo_cap="Our office building in Gaza after the strike",
@@ -121,27 +119,26 @@ T = {
     ],
     plan_k="What we will build", plan_h="Restarting our Gaza team comes first",
     plan=[
-        ("Priority", "Restart the Gaza team", "Ten of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
+        ("Priority", "Restart the Gaza team", "Eight of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
         ("In parallel", "Grow across the Arab region", "From our registered company in Oman we build a client base for digital marketing and AI transformation, so this support turns into sustainable revenue after six months."),
     ],
     legal_h="And we put our legal house in order",
-    legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"]),
-           ("In Oman", ["Commercial registration", "Oman Chamber of Commerce and Industry membership", "Setup costs"])],
-    budget_k="Where the money goes", budget_h="$67,200 for six months",
-    budget_p="Salaries are half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
-    total="Total", phases=[("Phase 1: $33,600", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $33,600", "Months four to six, and regional growth.")],
+    legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"])],
+    budget_k="Where the money goes", budget_h="$49,400 for six months",
+    budget_p="Salaries are more than half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
+    total="Total", phases=[("Phase 1: $24,700", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $24,700", "Months four to six, and regional growth.")],
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
-    tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$6,000", "A full month of team salaries")],
+    tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$4,800", "A full month of team salaries")],
     any_amt="Or any amount you choose",
-    methods_h="Ways to give", methods_p="Bank transfer to our company account in Oman is open now: email us and we will send you the account details. A card payment link is on its way.",
+    methods_h="Give securely", methods_p="We take donations through Chuffed, the crowdfunding platform, so your payment is safe and trusted.", give_btn="Donate on Chuffed", wa_note="For other ways to give, reach us on WhatsApp:", secure="Safe, trusted giving through Chuffed",
     mail_btn="Email us to give", mail_subj="Supporting the MoreGrowth rebuild",
-    biz_h="For business owners", biz_p="You can also support us by prepaying for marketing services or sponsoring the campaign, with a formal invoice from our company in Oman.",
+    biz_h="Send us work", biz_p="One of the strongest ways to help is to bring our team a project or a job: a marketing campaign, content or paid ads for your company or one you know. You can also prepay for services or sponsor the campaign.",
     trust_k="Transparency", trust_h="Our commitments to you",
     trust=["A monthly report on this page: what came in, what was spent, and what it achieved.", "If we raise more, we extend the runway. If we raise less, salaries are protected first.", "A personal thank-you to every supporter, and a thank-you wall for those who want their name or logo shown.", "We are a registered company in Oman, and you can verify our Google Partner status below."],
     partner_link="Our Google Partners profile",
     faq_h="Questions",
     faq=[("Is my support tax-deductible?", "No. We are a company, not a charity, so we can't issue tax receipts. Businesses that prepay for services receive a normal invoice."),
-         ("Who receives the money?", "Funds are received by our company registered in Oman, which pays the team in Gaza."),
+         ("How do I give?", "Through our campaign page on Chuffed, where payment is safe and trusted. Donations go to the budget lines shown on this page."),
          ("How will I know how it was spent?", "We publish a monthly report on this page and answer any question at info@moregrowth.co.")],
     sign="Mohammed, founder of MoreGrowth", sign_p="Thank you for reading our story. Sharing this page is support too.",
 ),
@@ -160,6 +157,10 @@ def body(lang, t):
     a = t["assets"]
     pct = round(RAISED * 100 / GOAL)
     mail = f'mailto:info@moregrowth.co?subject={html.escape(t["mail_subj"])}'
+    give = DONATE_URL or mail
+    ext = ' target="_blank" rel="noopener"' if DONATE_URL else ''
+    give_btn = t["give_btn"] if DONATE_URL else t["mail_btn"]
+    lock = '<p class="rb-secure"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>' + t["secure"] + '</p>'
     stats = "".join(f'<div data-reveal style="--d:{i*.08}s"><b>{n}</b><span>{s}</span></div>' for i, (n, s) in enumerate(t["stats"]))
     ch = "".join(f'<div class="rb-ch" data-reveal><span class="rb-num">0{i+1}</span><h3>{h}</h3><p>{p}</p></div>' for i, (h, p) in enumerate(t["ch"]))
     tl = "".join(f'<li><b>{h}</b><span>{d}</span></li>' for h, d in t["tl"])
@@ -170,7 +171,7 @@ def body(lang, t):
     i = 0 if lang == "ar" else 1
     rows = "".join(f'<li><span class="rb-b-l">{b[i]}</span><span class="rb-b-bar"><i style="--w:{b[2]*100/mx:.1f}%"></i></span><span class="rb-b-v">{money(b[2], lang)}</span></li>' for b in BUDGET)
     phases = "".join(f'<div><b>{h}</b><p>{p}</p></div>' for h, p in t["phases"])
-    tiers = "".join(f'<a class="rb-tier" href="{mail}" data-reveal style="--d:{k*.08}s"><b>{v}</b><span>{d}</span></a>' for k, (v, d) in enumerate(t["tiers"]))
+    tiers = "".join(f'<a class="rb-tier" href="{give}"{ext} data-reveal style="--d:{k*.08}s"><b>{v}</b><span>{d}</span></a>' for k, (v, d) in enumerate(t["tiers"]))
     trust = "".join(f"<li>{x}</li>" for x in t["trust"])
     impact = "".join(f'<article class="rb-card rb-impact" data-reveal style="--d:{k*.08}s"><b>{n}</b><span class="rb-tag">{tag}</span><p>{p}</p></article>' for k, (n, tag, p) in enumerate(t["impact"]))
     faq = "".join(f"<details class=\"rb-faq\"><summary>{q}</summary><p>{ans}</p></details>" for q, ans in t["faq"])
@@ -184,12 +185,12 @@ def body(lang, t):
       <p class="rb-hsub">{t["sub"]}</p>
       <p class="rb-lead">{t["lead"]}</p>
       <div class="rb-meter" role="img" aria-label="{RAISED} / {GOAL}"><div class="rb-meter-bar"><i style="--w:{max(pct,1)}%"></i></div><p>{meter_txt}</p></div>
-      <div class="rb-ctas"><a class="btn btn-primary" href="#support" data-rb-cta>{t["cta"]} {ARROW}</a><a class="btn btn-ghost" href="#story">{t["cta2"]}</a></div>
+      <div class="rb-ctas"><a class="btn btn-primary" href="{give if DONATE_URL else '#support'}"{ext} data-rb-cta>{t["cta"]} {ARROW}</a><a class="btn btn-ghost" href="#story">{t["cta2"]}</a></div>
+      {lock}
     </div>
     <figure class="rb-hero-photo" data-reveal="zoom"><img src="{a}/rebuild/office-destroyed.jpg" alt="{t["photo_cap"]}" width="1170" height="1560"><figcaption>{t["photo_cap"]}</figcaption></figure>
   </div>
 </section>
-<section class="wrap rb-stats">{stats}</section>
 
 <section class="wrap rb-sec" id="story">
   <p class="kicker">{t["story_k"]}</p><h2>{t["story_h"]}</h2>
@@ -203,13 +204,8 @@ def body(lang, t):
     <div><span class="rb-ba-tag">{t["before"]}</span>{ph(t["ph_before"])}</div>
     <div><span class="rb-ba-tag rb-after">{t["after"]}</span><figure class="rb-photo"><img src="{a}/rebuild/office-destroyed.jpg" alt="{t["photo_cap"]}" loading="lazy" width="1170" height="1560"></figure></div>
   </div>
-  <ol class="rb-tl">{tl}</ol>
 </section>
 
-<section class="wrap rb-sec">
-  <p class="kicker">{t["team_k"]}</p><h2>{t["team_h"]}</h2><p class="rb-sub">{t["team_p"]}</p>
-  <div class="rb-team">{team}</div>
-</section>
 
 <section class="wrap rb-sec">
   <p class="kicker">{t["impact_k"]}</p><h2>{t["impact_h"]}</h2><p class="rb-sub">{t["impact_p"]}</p>
@@ -225,7 +221,6 @@ def body(lang, t):
 <section class="wrap rb-sec" id="budget">
   <p class="kicker">{t["budget_k"]}</p><h2>{t["budget_h"]}</h2><p class="rb-sub">{t["budget_p"]}</p>
   <div class="rb-budget" data-reveal><ul>{rows}</ul><p class="rb-total"><span>{t["total"]}</span><b>{money(GOAL, lang)}</b></p></div>
-  <div class="rb-phases">{phases}</div>
 </section>
 
 <section class="wrap rb-sec" id="support">
@@ -233,8 +228,8 @@ def body(lang, t):
   <div class="rb-tiers">{tiers}</div>
   <p class="rb-any">{t["any_amt"]}</p>
   <div class="rb-give">
-    <div class="rb-card"><h3>{t["methods_h"]}</h3><p>{t["methods_p"]}</p><a class="btn btn-primary" href="{mail}" data-rb-cta>{t["mail_btn"]} {ARROW}</a></div>
-    <div class="rb-card"><h3>{t["biz_h"]}</h3><p>{t["biz_p"]}</p><a class="btn btn-ghost" href="{mail}">info@moregrowth.co</a></div>
+    <div class="rb-card"><h3>{t["methods_h"]}</h3><p>{t["methods_p"]}</p><a class="btn btn-primary" href="{give}"{ext} data-rb-cta>{give_btn} {ARROW}</a></div>
+    <div class="rb-card"><h3>{t["biz_h"]}</h3><p>{t["biz_p"]}</p><div class="rb-contact"><a class="btn btn-ghost" href="{mail}">info@moregrowth.co</a><p>{t["wa_note"]}</p><a class="btn btn-ghost" href="https://wa.me/970592200373" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg><span dir="ltr">+970 59 220 0373</span></a></div></div>
   </div>
 </section>
 

@@ -125,3 +125,8 @@
 .rb-impacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .rb-impact b{display:block;font-size:clamp(32px,3.4vw,42px);line-height:1.15;margin-bottom:10px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 @media (max-width:860px){.rb-impacts{grid-template-columns:minmax(0,1fr)}}
+.rb-secure{display:flex;align-items:center;gap:8px;margin:14px 0 0;color:var(--muted);font-size:14px}
+.rb-secure svg{width:16px;height:16px;fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.rb-contact{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.rb-contact p{margin:6px 0 0;font-size:15px}
+.rb-contact .btn{min-width:240px;justify-content:center}
