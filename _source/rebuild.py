@@ -74,9 +74,9 @@ T = {
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
     tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("4,800$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
-    methods_h="تبرّع بأمان", methods_p="نستقبل التبرعات عبر منصة Chuffed للتبرعات الجماعية، والدفع من خلالها آمن وموثوق.", give_btn="تبرّع عبر Chuffed", secure="تبرّع آمن وموثوق عبر منصة Chuffed",
+    methods_h="تبرّع بأمان", methods_p="نستقبل التبرعات عبر منصة Chuffed للتبرعات الجماعية، والدفع من خلالها آمن وموثوق.", give_btn="تبرّع عبر Chuffed", wa_note="لطرق تبرع أخرى، تواصل معنا عبر واتساب:", secure="تبرّع آمن وموثوق عبر منصة Chuffed",
     mail_btn="راسلنا للدعم", mail_subj="دعم إعادة بناء مورجروث",
-    biz_h="لأصحاب الشركات", biz_p="يمكنك أيضًا دعمنا بشراء خدمات تسويق مقدمًا أو برعاية الحملة، ونصدر لك فاتورة رسمية من شركتنا في عُمان.",
+    biz_h="ادعمنا بالمشاريع وفرص العمل", biz_p="من أقوى أشكال الدعم أن توفّر لفريقنا مشروعًا أو فرصة عمل: حملة تسويقية، أو محتوى، أو إعلانات مدفوعة لشركتك أو لشركة تعرفها. ويمكنك أيضًا شراء خدمات مقدمًا أو رعاية الحملة.",
     trust_k="الشفافية", trust_h="نلتزم أمامك بما يلي",
     trust=["تقرير شهري على هذه الصفحة بما جُمع وما صُرف وما تحقق.", "إن جمعنا أكثر من الهدف نمدد فترة التشغيل، وإن جمعنا أقل نحمي الرواتب أولًا.", "رسالة شكر شخصية لكل داعم، وحائط شكر لمن يرغب بظهور اسمه أو شعار شركته.", "الشركة مسجلة في سلطنة عُمان، ويمكنك التحقق من شراكتنا مع Google من الرابط أدناه."],
     partner_link="ملفنا على Google Partners",
@@ -130,9 +130,9 @@ T = {
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
     tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$4,800", "A full month of team salaries")],
     any_amt="Or any amount you choose",
-    methods_h="Give securely", methods_p="We take donations through Chuffed, the crowdfunding platform, so your payment is safe and trusted.", give_btn="Donate on Chuffed", secure="Safe, trusted giving through Chuffed",
+    methods_h="Give securely", methods_p="We take donations through Chuffed, the crowdfunding platform, so your payment is safe and trusted.", give_btn="Donate on Chuffed", wa_note="For other ways to give, reach us on WhatsApp:", secure="Safe, trusted giving through Chuffed",
     mail_btn="Email us to give", mail_subj="Supporting the MoreGrowth rebuild",
-    biz_h="For business owners", biz_p="You can also support us by prepaying for marketing services or sponsoring the campaign, with a formal invoice from our company in Oman.",
+    biz_h="Send us work", biz_p="One of the strongest ways to help is to bring our team a project or a job: a marketing campaign, content or paid ads for your company or one you know. You can also prepay for services or sponsor the campaign.",
     trust_k="Transparency", trust_h="Our commitments to you",
     trust=["A monthly report on this page: what came in, what was spent, and what it achieved.", "If we raise more, we extend the runway. If we raise less, salaries are protected first.", "A personal thank-you to every supporter, and a thank-you wall for those who want their name or logo shown.", "We are a registered company in Oman, and you can verify our Google Partner status below."],
     partner_link="Our Google Partners profile",
@@ -229,7 +229,7 @@ def body(lang, t):
   <p class="rb-any">{t["any_amt"]}</p>
   <div class="rb-give">
     <div class="rb-card"><h3>{t["methods_h"]}</h3><p>{t["methods_p"]}</p><a class="btn btn-primary" href="{give}"{ext} data-rb-cta>{give_btn} {ARROW}</a></div>
-    <div class="rb-card"><h3>{t["biz_h"]}</h3><p>{t["biz_p"]}</p><a class="btn btn-ghost" href="{mail}">info@moregrowth.co</a></div>
+    <div class="rb-card"><h3>{t["biz_h"]}</h3><p>{t["biz_p"]}</p><div class="rb-contact"><a class="btn btn-ghost" href="{mail}">info@moregrowth.co</a><p>{t["wa_note"]}</p><a class="btn btn-ghost" href="https://wa.me/970592200373" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg><span dir="ltr">+970 59 220 0373</span></a></div></div>
   </div>
 </section>
 
