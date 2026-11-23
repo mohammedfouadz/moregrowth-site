@@ -8,20 +8,20 @@ Edit the TEXT dicts and BUDGET below, then re-run.
 import re, pathlib, html
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOAL = 49400
+GOAL = 24950
 RAISED = 0          # update as money comes in
 SUPPORTERS = 0
 DONATE_URL = "https://chuffed.org/"   # Chuffed campaign link; empty = buttons fall back to email
 
-# (ar, en, amount for 6 months) — salaries/workspace from Mohammed, rest estimates
+# (ar, en, amount for 3 months) — salaries/workspace from Mohammed, rest estimates
 BUDGET = [
-    ("رواتب فريق غزة (8 موظفين × 600 دولار شهريًا)", "Gaza team salaries (8 people × $600/month)", 28800),
-    ("التسويق وجلب العملاء (1,500 دولار شهريًا)", "Marketing to win new clients ($1,500/month)", 9000),
+    ("رواتب فريق غزة (6 موظفين × 600 دولار شهريًا)", "Gaza team salaries (6 people × $600/month)", 10800),
+    ("التسويق وجلب العملاء (1,500 دولار شهريًا)", "Marketing to win new clients ($1,500/month)", 4500),
     ("أجهزة بدل التي فُقدت", "Laptops and phones to replace what was lost", 5000),
-    ("غرفة العمل في غزة (400 دولار شهريًا)", "Gaza workspace room ($400/month)", 2400),
-    ("الأدوات والاشتراكات (300 دولار شهريًا)", "Software and subscriptions ($300/month)", 1800),
+    ("غرفة العمل في غزة (600 دولار شهريًا)", "Gaza workspace room ($600/month)", 1800),
+    ("الأدوات والاشتراكات (300 دولار شهريًا)", "Software and subscriptions ($300/month)", 900),
     ("الأوراق القانونية في فلسطين", "Legal papers in Palestine", 1500),
-    ("مزودو الخدمات المحاسبية والقانونية (150 دولار شهريًا)", "Accounting and legal providers ($150/month)", 900),
+    ("مزودو الخدمات المحاسبية والقانونية (150 دولار شهريًا)", "Accounting and legal providers ($150/month)", 450),
 ]
 assert sum(b[2] for b in BUDGET) == GOAL
 
@@ -34,11 +34,11 @@ T = {
     tpl="privacy/index.html", out="rebuild/index.html", url="https://moregrowth.co/rebuild/",
     assets="../assets", locale="ar_AR", cur="عربي",
     title="نعيد البناء | ادعم عودة فريق مورجروث في غزة",
-    desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ستة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
+    desc="دُمّر مكتبنا في غزة ثلاث مرات. ساعدنا في تغطية ثلاثة أشهر من التكاليف الجارية لنعيد تشغيل فريقنا ونتوسع في المنطقة العربية.",
     kicker="نعيد البناء",
     h1="أعِد فريقنا في غزة إلى العمل،<br><span class=\"grad\">وادعم عائلاتهم من جديد.</span>",
     sub="دُمّر مكتبنا ثلاث مرات. ولم يُدمَّر الفريق.",
-    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 49,400 دولار لتغطية ستة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
+    lead="مورجروث للحلول الرقمية شركة تسويق رقمي من غزة، وشريك معتمد من Google منذ 2020. نجمع 24,950 دولار لتغطية ثلاثة أشهر من التكاليف الجارية، حتى نعيد تشغيل فريقنا في غزة ونقف على أقدامنا من جديد.",
     cta="ادعم عودة الفريق", cta2="اقرأ قصتنا",
     raised="جُمع حتى الآن", of="من هدف", supporters="داعمًا", soon="تنطلق الحملة قريبًا",
     photo_cap="مبنى مكتبنا في غزة بعد القصف",
@@ -47,7 +47,7 @@ T = {
     ch=[
         ("ما بنيناه", "في غزة بنينا مورجروث للحلول الرقمية: فريق من أكثر من 15 موظفًا وموظفة، يعيل عملهم عائلات كثيرة. منذ 2020 ونحن شريك معتمد من Google، وخدمنا 15 عميلًا في السعودية وفلسطين والكويت والبحرين في التسويق الرقمي والإعلانات المدفوعة وكتابة المحتوى والاستشارات التسويقية."),
         ("ما حدث", "في الحرب دُمّر مكتبنا ثلاث مرات. في كل مرة كنا نجمع ما تبقى ونبدأ من جديد، حتى لم يبقَ ما نجمعه. توقفت العقود، وضاعت المشاريع، وتفرّق الفريق."),
-        ("لماذا لم نتوقف", "الشركة ما زالت قائمة، ولدينا فريق يعمل اليوم في عُمان وفلسطين، لكن بلا مكتب. أعدنا بناء موقعنا وهويتنا، وعدنا للتواصل مع العملاء. ما ينقصنا هو الشيء الوحيد الذي لا يُبنى بالإصرار وحده: ستة أشهر من التكاليف الجارية حتى تقف الشركة على قدميها من جديد."),
+        ("لماذا لم نتوقف", "الشركة ما زالت قائمة، ولدينا فريق يعمل اليوم في عُمان وفلسطين، لكن بلا مكتب. أعدنا بناء موقعنا وهويتنا، وعدنا للتواصل مع العملاء. ما ينقصنا هو الشيء الوحيد الذي لا يُبنى بالإصرار وحده: ثلاثة أشهر من التكاليف الجارية حتى تقف الشركة على قدميها من جديد."),
     ],
     ph_team="صورة الفريق في المكتب (قريبًا)",
     ba_k="قبل وبعد", ba_h="المكتب الذي عملنا منه",
@@ -63,16 +63,16 @@ T = {
     ],
     plan_k="ما سنبنيه", plan_h="نعيد تشغيل فريق غزة أولًا",
     plan=[
-        ("الأولوية", "إعادة تشغيل فريق غزة", "8 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
-        ("بالتوازي", "التوسع في المنطقة العربية", "انطلاقًا من مقرنا المسجل في سلطنة عُمان، نبني قاعدة عملاء في المنطقة في التسويق الرقمي والتحول بالذكاء الاصطناعي، حتى يتحول هذا الدعم إلى دخل مستدام بعد الأشهر الستة."),
+        ("الأولوية", "إعادة تشغيل فريق غزة", "6 من زملائنا يعودون إلى العمل برواتب منتظمة، من غرفة عمل مستقلة نستأجرها في غزة ومجهزة بالكهرباء والإنترنت، ليداوموا منها ويخدموا عملاء من المنطقة العربية والعالم."),
+        ("بالتوازي", "التوسع في المنطقة العربية", "انطلاقًا من مقرنا المسجل في سلطنة عُمان، نبني قاعدة عملاء في المنطقة في التسويق الرقمي والتحول بالذكاء الاصطناعي، حتى يتحول هذا الدعم إلى دخل مستدام بعد الأشهر الثلاثة."),
     ],
     legal_h="ولنعمل بشكل قانوني سليم، نسوّي أوراقنا",
     legal=[("في فلسطين", ["تجديد السجل التجاري", "عضوية اتحاد شركات أنظمة المعلومات الفلسطيني (PITA)", "تخليص الضرائب المتراكمة"])],
-    budget_k="أين تذهب الأموال", budget_h="49,400 دولار لستة أشهر",
-    budget_p="الرواتب أكثر من نصف المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
+    budget_k="أين تذهب الأموال", budget_h="24,950 دولار لثلاثة أشهر",
+    budget_p="الرواتب هي الجزء الأكبر من المبلغ، ويليها التسويق لجلب العملاء. الأرقام أدناه خطتنا الحالية، وسننشر ما يُصرف فعلًا كل شهر.",
     total="المجموع", phases=[("المرحلة الأولى: 24,700 دولار", "الأجهزة، والأوراق القانونية، وأول ثلاثة أشهر من التشغيل."), ("المرحلة الثانية: 24,700 دولار", "الأشهر من الرابع إلى السادس، والتوسع في المنطقة.")],
     sup_k="كيف تشارك", sup_h="كل مساهمة تذهب إلى بند محدد",
-    tiers=[("400$", "شهر كامل في غرفة العمل"), ("600$", "راتب شهر لزميل في غزة"), ("4,800$", "شهر كامل من رواتب الفريق")],
+    tiers=[("300$", "شهر من البرامج والأدوات"), ("600$", "راتب شهر لزميل في غزة"), ("3,600$", "شهر كامل من رواتب الفريق")],
     any_amt="أو أي مبلغ تختاره",
     methods_h="تبرّع بأمان", methods_p="نستقبل التبرعات عبر منصة Chuffed للتبرعات الجماعية، والدفع من خلالها آمن وموثوق.", give_btn="تبرّع عبر Chuffed", wa_note="لطرق تبرع أخرى، تواصل معنا عبر واتساب:", secure="تبرّع آمن وموثوق عبر منصة Chuffed",
     mail_btn="راسلنا للدعم", mail_subj="دعم إعادة بناء مورجروث",
@@ -90,11 +90,11 @@ T = {
     tpl="en/privacy/index.html", out="en/rebuild/index.html", url="https://moregrowth.co/en/rebuild/",
     assets="../../assets", locale="en_US", cur="EN",
     title="Rebuild MoreGrowth | Help our Gaza team get back to work",
-    desc="Our office in Gaza was destroyed three times. Help us cover six months of running costs to restart our team and grow across the Arab region.",
+    desc="Our office in Gaza was destroyed three times. Help us cover three months of running costs to restart our team and grow across the Arab region.",
     kicker="Rebuild MoreGrowth",
     h1="Bring our Gaza team back to work,<br><span class=\"grad\">and support their families again.</span>",
     sub="Our office was destroyed three times. Our team was not.",
-    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $49,400 to cover six months of running costs, so we can restart our Gaza team and stand on our own feet again.",
+    lead="MoreGrowth Digital Solutions is a digital marketing agency from Gaza and a Google Partner since 2020. We are raising $24,950 to cover three months of running costs, so we can restart our Gaza team and stand on our own feet again.",
     cta="Back our comeback", cta2="Read our story",
     raised="raised so far", of="of", supporters="supporters", soon="Campaign opens soon",
     photo_cap="Our office building in Gaza after the strike",
@@ -103,7 +103,7 @@ T = {
     ch=[
         ("What we built", "In Gaza we built MoreGrowth Digital Solutions: a team of more than 15 people whose salaries supported many families. Since 2020 we have been a Google Partner, serving 15 clients in Saudi Arabia, Palestine, Kuwait and Bahrain with digital marketing, paid ads, content and marketing consulting."),
         ("What happened", "During the war our office was destroyed three times. Each time we gathered what was left and started again, until there was nothing left to gather. Contracts stopped, projects were lost, and the team was scattered."),
-        ("Why we didn't stop", "The company is still standing, with team members working today in Oman and Palestine, but without an office. We have rebuilt our website and brand and are back in touch with clients. What we lack is the one thing determination alone can't build: six months of running costs until the business can carry itself again."),
+        ("Why we didn't stop", "The company is still standing, with team members working today in Oman and Palestine, but without an office. We have rebuilt our website and brand and are back in touch with clients. What we lack is the one thing determination alone can't build: three months of running costs until the business can carry itself again."),
     ],
     ph_team="Team photo at the office (coming soon)",
     ba_k="Before and after", ba_h="The office we worked from",
@@ -119,16 +119,16 @@ T = {
     ],
     plan_k="What we will build", plan_h="Restarting our Gaza team comes first",
     plan=[
-        ("Priority", "Restart the Gaza team", "Eight of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
-        ("In parallel", "Grow across the Arab region", "From our registered company in Oman we build a client base for digital marketing and AI transformation, so this support turns into sustainable revenue after six months."),
+        ("Priority", "Restart the Gaza team", "Six of our colleagues return to work on regular salaries, from a dedicated room we rent in Gaza with power and internet, serving clients across the Arab region and beyond."),
+        ("In parallel", "Grow across the Arab region", "From our registered company in Oman we build a client base for digital marketing and AI transformation, so this support turns into sustainable revenue after three months."),
     ],
     legal_h="And we put our legal house in order",
     legal=[("In Palestine", ["Renew our commercial registration", "Membership of PITA, the Palestinian IT Association", "Clear accumulated taxes"])],
-    budget_k="Where the money goes", budget_h="$49,400 for six months",
-    budget_p="Salaries are more than half the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
+    budget_k="Where the money goes", budget_h="$24,950 for three months",
+    budget_p="Salaries are the largest part of the total, followed by marketing to win clients. These figures are our current plan, and we will publish actual spending every month.",
     total="Total", phases=[("Phase 1: $24,700", "Equipment, legal papers and the first three months of operations."), ("Phase 2: $24,700", "Months four to six, and regional growth.")],
     sup_k="How to help", sup_h="Every contribution goes to a specific line",
-    tiers=[("$400", "A full month in the workspace"), ("$600", "One month's salary for a colleague in Gaza"), ("$4,800", "A full month of team salaries")],
+    tiers=[("$300", "A month of software and tools"), ("$600", "One month's salary for a colleague in Gaza"), ("$3,600", "A full month of team salaries")],
     any_amt="Or any amount you choose",
     methods_h="Give securely", methods_p="We take donations through Chuffed, the crowdfunding platform, so your payment is safe and trusted.", give_btn="Donate on Chuffed", wa_note="For other ways to give, reach us on WhatsApp:", secure="Safe, trusted giving through Chuffed",
     mail_btn="Email us to give", mail_subj="Supporting the MoreGrowth rebuild",
