@@ -30,7 +30,7 @@ LINE.update({
 })
 MK_ICONS = ["ads", "mega", "seo", "pen", "cal", "compass"]
 ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
-CLIENTS = [("unrwa", "UNRWA"), ("jawwal", "Jawwal"), ("lucidya", "Lucidya"), ("jahez", "Jahez"), ("osarh", "OSARH"), ("ucasti", "UCAS Technology Incubator"), ("gsg", "Gaza Sky Geeks"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
+CLIENTS = [("unrwa", "UNRWA"), ("jawwal", "Jawwal"), ("lucidya", "Lucidya"), ("jahez", "Jahez"), ("osarh", "OSARH"), ("ucasti", "UCAS Technology Incubator"), ("gsg", "Gaza Sky Geeks"), ("bti", "Business & Technology Incubator"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
            ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("one-studio", "One Studio")]
 
 AR.update(
