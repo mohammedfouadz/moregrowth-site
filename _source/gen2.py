@@ -30,8 +30,8 @@ LINE.update({
 })
 MK_ICONS = ["ads", "mega", "seo", "pen", "cal", "compass"]
 ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
-CLIENTS = [("jawwal", "Jawwal"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
-           ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("famkeez", "Famkeez"), ("one-studio", "One Studio")]
+CLIENTS = [("unrwa", "UNRWA"), ("jawwal", "Jawwal"), ("lucidya", "Lucidya"), ("jahez", "Jahez"), ("osarh", "OSARH"), ("ucasti", "UCAS Technology Incubator"), ("gsg", "Gaza Sky Geeks"), ("bti", "Business & Technology Incubator"), ("neo", "NEO"), ("necklace", "Necklace"), ("gulf-co", "The Gulf Co."),
+           ("b2bmerx", "B2Bmerx"), ("gulf-store", "Gulf Store"), ("one-studio", "One Studio")]
 
 AR.update(
     t1="المسار الأول", t2="المسار الثاني", tk_start="ابدأ من هنا", tk_partner="شريك جوجل", tk_meet="نقطة الالتقاء", tk_ai="ذكاء اصطناعي", tk_mk="تسويق",
@@ -110,7 +110,7 @@ def page(t, privacy=False):
     con.insert(0, "")
     con_html = "".join(con) + '<div class="msg ai typing-row" style="display:none;opacity:1;transform:none;width:max-content"><span class="typing"><i></i><i></i><i></i></span></div>'
     # clients marquee (duplicated for seamless loop)
-    tiles = "".join(f'<div class="logo-tile"><img src="{r}assets/clients/{f}.png" alt="{n}" loading="lazy" height="56"></div>' for f, n in CLIENTS)
+    tiles = "".join(f'<div class="logo-tile"><img src="{r}assets/clients/{f}.png" alt="{n}" loading="lazy" height="56" draggable="false"></div>' for f, n in CLIENTS)
     # two service tracks
     def track_items(items, icons, kind, skip=None):
         out, n = [], 0
