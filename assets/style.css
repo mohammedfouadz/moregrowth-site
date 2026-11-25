@@ -176,7 +176,7 @@ h2{font-size:clamp(30px,4.2vw,52px);line-height:1.18;margin:0 0 16px;font-weight
 .marquee.dragging .logo-tile{transform:none}
 @keyframes scroll{to{transform:translateX(-50%)}}
 .logo-tile{flex:none;height:92px;min-width:180px;padding:18px 28px;display:grid;place-items:center;border-radius:16px;background:#fff;border:1px solid var(--tile-border);transition:transform .3s var(--ease),filter .3s}
-.logo-tile img{max-height:56px;width:auto;filter:grayscale(1) contrast(1.05);opacity:.75;transition:filter .3s,opacity .3s}
+.logo-tile img{max-height:56px;max-width:170px;height:auto;width:auto;filter:grayscale(1) contrast(1.05);opacity:.75;transition:filter .3s,opacity .3s}
 .logo-tile:hover{transform:translateY(-4px)}
 .logo-tile:hover img{filter:none;opacity:1}
 
