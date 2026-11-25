@@ -50,7 +50,7 @@ NL = dict(
     ],
     ab_k="Over ons", ab_h="Ons verhaal",
     ab_p1="MoreGrowth Digital Solutions is een bureau voor digitale marketing en groei, met specialisten in online adverteren, content en SEO. In de afgelopen jaren hebben we startups en middelgrote bedrijven in meerdere Arabische markten bediend.",
-    ab_p2="In 2023 verloren we ons kantoor en onze lopende projecten in Gaza door de oorlog. We zijn terug, vastberadener dan ooit en met een nieuwe focus: organisaties helpen groeien met AI en digitale marketing. Het bedrijf is geregistreerd in het Sultanaat Oman en werkt op afstand met klanten in de regio en daarbuiten.",
+    ab_p2="In 2023 verloren we ons kantoor en onze lopende projecten in Gaza door de oorlog. We zijn terug, vastberadener dan ooit en met een nieuwe focus: organisaties helpen groeien met AI en digitale marketing. Het bedrijf is geregistreerd in Palestina en het Sultanaat Oman en werkt op afstand met klanten in de regio en daarbuiten.",
     quote="Onze visie: voorop lopen in innovatie en gelijke tred houden met de snelle ontwikkeling van digitale marketing en AI in al zijn moderne vormen.",
     values=[("Integriteit", "Volledige transparantie in alles wat we doen."), ("Kwaliteit", "Toegewijd aan normen en deadlines."), ("Klanttevredenheid", "We streven ernaar verwachtingen te overtreffen."), ("Continue groei", "We leren en ontwikkelen mee met technologie.")],
     ct_h="Laten we praten over jouw groei",

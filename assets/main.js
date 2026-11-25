@@ -289,6 +289,44 @@
     }
   })();
 
+  /* clients slider: auto-scroll, plus drag / swipe / horizontal wheel */
+  (function () {
+    var mq = document.querySelector('.marquee'), tr = mq && mq.querySelector('.track');
+    if (!tr) return;
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var x = 0, half = 0, speed = 0, vel = 0, drag = false, hover = false, sx = 0, sx0 = 0, lx = 0, lt = 0, last = 0;
+    mq.classList.add('drag-on');
+    function measure() { half = tr.scrollWidth / 2; speed = still ? 0 : half / 38; }
+    measure(); window.addEventListener('resize', measure); window.addEventListener('load', measure);
+    function frame(t) {
+      var dt = last ? Math.min(64, t - last) / 1000 : 0; last = t;
+      if (!drag) { x += (hover ? 0 : speed) * dt + vel * dt; vel *= 0.92; if (Math.abs(vel) < 2) vel = 0; }
+      if (half) x = ((x % half) + half) % half;
+      tr.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    mq.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
+    mq.addEventListener('pointerleave', function () { hover = false; });
+    mq.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      drag = true; vel = 0; sx = lx = e.clientX; sx0 = x; lt = performance.now();
+      mq.classList.add('dragging');
+      try { mq.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    mq.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var now = performance.now(), dt = Math.max(1, now - lt);
+      x = sx0 - (e.clientX - sx);
+      vel = -(e.clientX - lx) / dt * 1000; lx = e.clientX; lt = now;
+    });
+    function end() { if (!drag) return; drag = false; mq.classList.remove('dragging'); if (performance.now() - lt > 80) vel = 0; vel = Math.max(-2500, Math.min(2500, vel)); }
+    mq.addEventListener('pointerup', end); mq.addEventListener('pointercancel', end);
+    mq.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { x += e.deltaX; e.preventDefault(); }
+    }, { passive: false });
+  })();
+
   /* service tracks: pointer spotlight + gentle tilt */
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('[data-tilt]').forEach(function (p) {
